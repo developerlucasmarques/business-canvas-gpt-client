@@ -1,6 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+
+import { Input } from '@/components/form/input'
 
 export default function Home() {
   const { control } = useForm()
@@ -38,24 +40,12 @@ export default function Home() {
           Faça um Business Canva
         </h1>
         <div className="flex w-full flex-col items-center gap-4">
-          <Controller
+          <Input
+            control={control}
             name="business-type"
-            render={({ field: { name, onBlur, onChange, value } }) => (
-              <div className="w-full">
-                <p className="mb-2 text-blue-950">
-                  Qual o tipo do seu negócio?
-                </p>
-                <input
-                  type="text"
-                  value={value}
-                  name={name}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  className="w-full rounded-lg bg-blue-200 px-5 py-4 text-blue-950 transition-all"
-                  placeholder="Online, Presencial"
-                />
-              </div>
-            )}
+            placeholder="Qual o tipo do seu negócio?
+
+"
           />
           <div className="w-full">
             <p className="mb-2 text-blue-950">
