@@ -1,11 +1,12 @@
-import Image from "next/image";
-
 export function Header() {
   return (
-    <header className='bg-white w-full px-4 drop-shadow-md'>
-      <div className='max-w-7xl mx-auto flex py-6 items-center justify-between'>
-        <strong className="text-blue-500 text-2xl">BCM</strong>
-        <a href="#form" className="text-white font-bold bg-blue-500 py-2 px-4 rounded-md uppercase">
+    <header className="w-full bg-white px-4 drop-shadow-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between py-6">
+        <strong className="text-2xl text-blue-500">BCM</strong>
+        <a
+          href="#form"
+          className="rounded-md bg-blue-500 px-4 py-2 font-bold uppercase text-white"
+        >
           Login
         </a>
       </div>

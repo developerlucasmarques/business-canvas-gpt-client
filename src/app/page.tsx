@@ -1,45 +1,80 @@
-'use client';
-import { useEffect, useState } from 'react';
+'use client'
+import { useEffect, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 
 export default function Home() {
-  const [questions, setQuestions] = useState([]);
+  const { control } = useForm()
+  const [questions, setQuestions] = useState([])
+
+  async function submitCanva() {
+    console.log('a')
+  }
 
   async function getQuestions() {
     const response = await fetch(`/api`, {
       method: 'GET',
       headers: new Headers({
-        "ngrok-skip-browser-warning": "69420",
+        'ngrok-skip-browser-warning': '69420',
         Accept: 'application/json',
         'Content-Type': 'application/json',
       }),
-    });
-    const json = await response.json();
+    })
+    const json = await response.json()
 
-    setQuestions(json);
+    setQuestions(json)
   }
 
   useEffect(() => {
-    getQuestions();
-  }, []);
+    getQuestions()
+  }, [])
 
   return (
-    <main className="flex h-auto flex-1 flex-col items-center justify-center p-24 bg-white">
-      <form action="" className='w-full max-w-xl h-full flex justify-center items-center flex-col'>
-        <h1 className='font-medium text-4xl text-blue-950 my-4'>Faça um Business Canva</h1>
-        <div className='flex flex-col gap-4 w-full items-center'>
-          <div className='w-full'>
-            <p className='text-blue-950 mb-2'>Qual o tipo do seu negócio?</p>
-            <input type="text" className='w-full text-blue-950 bg-blue-200 px-5 h-14 rounded-lg' placeholder='Online, Presencial' />
+    <main className="flex h-auto flex-1 flex-col items-center justify-center bg-white p-24">
+      <form
+        onSubmit={submitCanva}
+        className="flex h-full w-full max-w-xl flex-col items-center justify-center"
+      >
+        <h1 className="my-4 text-4xl font-medium text-blue-950">
+          Faça um Business Canva
+        </h1>
+        <div className="flex w-full flex-col items-center gap-4">
+          <Controller
+            name="business-type"
+            render={({ field: { name, onBlur, onChange, value } }) => (
+              <div className="w-full">
+                <p className="mb-2 text-blue-950">
+                  Qual o tipo do seu negócio?
+                </p>
+                <input
+                  type="text"
+                  value={value}
+                  name={name}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  className="w-full rounded-lg bg-blue-200 px-5 py-4 text-blue-950 transition-all"
+                  placeholder="Online, Presencial"
+                />
+              </div>
+            )}
+          />
+          <div className="w-full">
+            <p className="mb-2 text-blue-950">
+              Qual a localização (Cidade, estado ou país)?
+            </p>
+            <input
+              type="text"
+              className="w-full rounded-lg bg-blue-200 px-5 py-4 text-blue-950 transition-all"
+              placeholder="Brasil"
+            />
           </div>
-          <div className='w-full'>
-            <p className='text-blue-950 mb-2'>Qual a localização (Cidade, estado ou país)?</p>
-            <input type="text" className='w-full text-blue-950 bg-blue-200 px-5 h-14 rounded-lg' placeholder='Brasil' />
+          <div className="w-full">
+            <p className="mb-2 text-blue-950">Descreva seu negócio:</p>
+            <textarea
+              className="w-full rounded-lg bg-blue-200 px-5 py-4 text-blue-950 transition-all"
+              placeholder="Empresa XYZ"
+            />
           </div>
-          <div className='w-full'>
-            <p className='text-blue-950 mb-2'>Descreva seu negócio:</p>
-            <input type="text" className='w-full text-blue-950 bg-blue-200 px-5 h-14 rounded-lg' placeholder='Empresa XYZ' />
-          </div>
-          <button className="mt-2 max-w-xs bg-blue-500 border-none font-bold text-white uppercase px-8 py-3 rounded-md">
+          <button className="mt-2 max-w-xs rounded-md border-none bg-blue-500 px-8 py-3 font-bold uppercase text-white transition-all hover:bg-blue-950">
             Enviar
           </button>
         </div>
