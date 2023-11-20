@@ -4,15 +4,19 @@ import { useForm } from 'react-hook-form'
 
 import { Input } from '@/components/form/input'
 import { Select } from '@/components/form/select'
+import { Textarea } from '@/components/form/textarea'
+
+interface Alternatives {
+  id: string
+  description: string
+  questionId: string
+}
 
 interface Questions {
   id: string
   content: string
-  alternatives?: {
-    id: string
-    description: string
-    questionId: string
-  }[]
+  alternatives?: Alternatives[]
+  typeText?: 'text-area' | 'text'
 }
 
 export default function Home() {
@@ -26,13 +30,14 @@ export default function Home() {
   async function getQuestions() {
     const response = await fetch(`/api`, {
       method: 'GET',
-      headers: new Headers({
-        'ngrok-skip-browser-warning': '69420',
+      headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-      }),
+      },
     })
-    const json = await response.json()
+    const json: Questions[] = await response.json()
+    json[1].typeText = 'text'
+    json[2].typeText = 'text-area'
     setQuestions(json)
   }
 
@@ -50,27 +55,33 @@ export default function Home() {
           Faça um Business Canva
         </h1>
         <div className="flex w-full flex-col items-center gap-4">
-          {questions.map(q => {
-            if (q?.alternatives) {
+          {questions.map(question => {
+            if (question?.alternatives) {
               return (
                 <Select
+                  key={question.id}
                   control={control}
-                  label={q.content}
-                  name={q.id}
-                  key={q.id}
-                  options={q.alternatives}
+                  label={question.content}
+                  name={question.id}
+                  options={question.alternatives}
                 />
               )
-            } else {
+            } else if (
+              question?.typeText === 'text' ||
+              question?.typeText === 'text-area'
+            ) {
+              const Component = question.typeText === 'text' ? Input : Textarea
               return (
-                <Input
-                  key={q.id}
+                <Component
+                  key={question.id}
                   control={control}
-                  name={q.id}
-                  placeholder={q.content}
+                  name={question.id}
+                  placeholder={question.content}
+                  className="w-full rounded-lg bg-blue-200 px-5 py-4 text-blue-950 transition-all"
                 />
               )
             }
+            return null
           })}
           {!questions.length && (
             <img
