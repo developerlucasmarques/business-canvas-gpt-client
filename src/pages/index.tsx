@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-
 import { Input } from '@/components/form/input'
 import { Select } from '@/components/form/select'
 import { Textarea } from '@/components/form/textarea'
@@ -25,25 +24,17 @@ export interface BusinessCanvasAnswer {
   answer?: string
 }
 
-export default function Home() {
+const Home: React.FC = () => {
   const { control, handleSubmit } = useForm()
   const [questions, setQuestions] = useState<Questions[]>([])
-  const [submittedData, setSubmittedData] = useState<BusinessCanvasAnswer[]>([])
 
-  async function submitCanva() {
-    const userResponses: BusinessCanvasAnswer[] = []
-
-    setSubmittedData(userResponses)
-    console.log(userResponses)
-  }
-
-  async function getQuestions() {
-    const response = await fetch(`api`, {
+  const getQuestions = async (): Promise<void> => {
+    const response = await fetch('api', {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json'
+      }
     })
 
     const json: Questions[] = await response.json()
@@ -53,13 +44,12 @@ export default function Home() {
   }
 
   useEffect(() => {
-    getQuestions()
+    getQuestions().catch(console.error)
   }, [])
 
   return (
     <main className="flex h-auto flex-1 flex-col items-center justify-center bg-white p-6 md:p-24">
       <form
-        onSubmit={handleSubmit(submitCanva)}
         className="flex h-full w-full max-w-xl flex-col items-center justify-center"
       >
         <h1 className="my-4 text-4xl font-medium text-blue-950">
@@ -111,3 +101,5 @@ export default function Home() {
     </main>
   )
 }
+
+export default Home

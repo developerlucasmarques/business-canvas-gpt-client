@@ -1,5 +1,5 @@
-import { TextareaHTMLAttributes } from 'react'
-import { Control, Controller } from 'react-hook-form'
+import type { TextareaHTMLAttributes } from 'react'
+import { Controller, type Control } from 'react-hook-form'
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   control: Control
@@ -7,7 +7,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   placeholder: string
 }
 
-export function Textarea({ control, name, placeholder }: TextareaProps) {
+export const Textarea: React.FC<TextareaProps> = ({ control, name, placeholder }: TextareaProps) => {
   return (
     <Controller
       control={control}

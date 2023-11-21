@@ -1,4 +1,4 @@
-export default function Home() {
+const Canvas: React.FC = () => {
   return (
     <main className="flex h-auto flex-1 flex-col items-center justify-center bg-white p-6 text-black md:p-12">
       <h1 className="mb-4 text-2xl font-bold uppercase text-blue-950">
@@ -216,3 +216,5 @@ export default function Home() {
     </main>
   )
 }
+
+export default Canvas

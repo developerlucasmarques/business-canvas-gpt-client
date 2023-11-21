@@ -1,18 +1,18 @@
-import { SelectHTMLAttributes } from 'react'
-import { Control, Controller } from 'react-hook-form'
+import { type SelectHTMLAttributes } from 'react'
+import { type Control, Controller } from 'react-hook-form'
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   control: Control
-  options: {
+  options: Array<{
     id: string
     description: string
     questionId: string
-  }[]
+  }>
   name: string
   label: string
 }
 
-export function Select({ control, label, name, options }: SelectProps) {
+export const Select: React.FC<SelectProps> = ({ control, label, name, options }: SelectProps) => {
   return (
     <Controller
       name={name}

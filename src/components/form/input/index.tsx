@@ -1,18 +1,19 @@
-import { InputHTMLAttributes } from 'react'
-import { Control, Controller } from 'react-hook-form'
+import { type Control, Controller, type FieldValues } from 'react-hook-form'
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  control: Control
+interface InputElementAttributes extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+interface InputProps extends InputElementAttributes {
+  control: Control<FieldValues>
   name: string
   placeholder: string
 }
 
-export function Input({ control, name, placeholder }: InputProps) {
+export const Input: React.FC<InputProps> = ({ control, name, placeholder }: InputProps) => {
   return (
     <Controller
       control={control}
       name={name}
-      render={({ field: { name, onBlur, onChange, value } }) => (
+      render={({ field: { name, onBlur, onChange, value } }): any => (
         <div className="w-full">
           <p className="mb-2 text-blue-950">{placeholder}</p>
           <input

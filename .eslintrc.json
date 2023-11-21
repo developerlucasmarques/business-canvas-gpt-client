@@ -1,44 +1,22 @@
 {
-  "root": true,
+  "env": {
+    "es2021": true,
+    "node": true
+  },
   "extends": [
-    "@rocketseat/eslint-config/react",
-    "plugin:react-hooks/recommended"
+    "standard-with-typescript"
   ],
-  "plugins": [
-    "unused-imports",
-    "simple-import-sort",
-    "prettier",
-    "react-hooks"
-  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": [
+      "./tsconfig.json"
+    ]
+  },
   "rules": {
-    "no-unused-vars": "off",
-    "unused-imports/no-unused-imports": "error",
-    "unused-imports/no-unused-vars": [
-      "warn",
-      {
-        "vars": "all",
-        "varsIgnorePattern": "^_",
-        "args": "after-used",
-        "argsIgnorePattern": "^_"
-      }
-    ],
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
-    "prettier/prettier": [
-      "warn",
-      {
-        "singleQuote": true,
-        "trailingComma": "all",
-        "semi": false,
-        "arrowParens": "avoid",
-        "plugins": ["prettier-plugin-tailwindcss"],
-        "tabWidth": 2,
-        "useTabs": false,
-        "tailwindFunctions": ["tv"]
-      }
-    ],
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-extraneous-class": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "valid-typeof": "off"
   }
 }
