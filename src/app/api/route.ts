@@ -19,8 +19,15 @@ export async function GET(request: NextApiRequest) {
 
 // To handle a POST request to /api
 export async function POST(request: NextApiRequest) {
-  // Do whatever you want
-  return NextResponse.json({ message: 'Hello World' }, { status: 200 })
+  const response = await fetch(`${process.env.API_URL}/api/business-canvas`, {
+    method: 'POST',
+    headers: new Headers({
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }),
+  })
+  const json = await response.json()
+  return NextResponse.json(json, { status: 201 })
 }
 
 // Same logic to add a `PATCH`, `DELETE`...
