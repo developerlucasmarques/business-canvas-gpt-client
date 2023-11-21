@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import {  blue } from 'tailwindcss/colors'
+import { blue } from 'tailwindcss/colors'
 
 const config: Config = {
   content: [
@@ -10,12 +10,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'blue': {
+        blue: {
           ...blue,
           200: '#E8F6FF',
           500: '#005DF9',
-          950: '#151774'
-        }
+          950: '#151774',
+        },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
