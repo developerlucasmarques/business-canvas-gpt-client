@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server'
 
 // To handle a GET request to /api
 export async function GET(request: NextApiRequest) {
-  const response = await fetch(`${process.env.API_URL}/api/question`, {
+  const response = await fetch(`${process.env.API_URL}/question`, {
     method: 'GET',
     headers: new Headers({
       Accept: 'application/json',
@@ -19,7 +19,7 @@ export async function GET(request: NextApiRequest) {
 
 // To handle a POST request to /api
 export async function POST(request: NextApiRequest) {
-  const response = await fetch(`${process.env.API_URL}/api/business-canvas`, {
+  const response = await fetch(`${process.env.API_URL}/business-canvas`, {
     method: 'POST',
     headers: new Headers({
       Accept: 'application/json',
