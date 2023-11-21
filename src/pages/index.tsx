@@ -26,34 +26,12 @@ export interface BusinessCanvasAnswer {
 }
 
 export default function Home() {
-  const { control, handleSubmit, getValues } = useForm()
+  const { control, handleSubmit } = useForm()
   const [questions, setQuestions] = useState<Questions[]>([])
   const [submittedData, setSubmittedData] = useState<BusinessCanvasAnswer[]>([])
 
   async function submitCanva() {
     const userResponses: BusinessCanvasAnswer[] = []
-
-    questions.forEach(question => {
-      const answer = getValues(question.id)
-      if (answer && answer.length > 0) {
-        if (question.alternatives) {
-          const selectedAlternative = question.alternatives.find(
-            alt => alt.id === answer,
-          )
-          if (selectedAlternative) {
-            userResponses.push({
-              questionId: question.id,
-              alternativeId: selectedAlternative.id,
-            })
-          }
-        } else {
-          userResponses.push({
-            questionId: question.id,
-            answer,
-          })
-        }
-      }
-    })
 
     setSubmittedData(userResponses)
     console.log(userResponses)
