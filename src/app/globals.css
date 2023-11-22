@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-background: #fff;
+  --color-title: #141774;
+  --color-button-background: #017CF6;
+  --color-white: #fff;
+  --color-body-text: #515267;
+  --color-section-background: #E8F6FF;
+  --color-dark-text: #151718;
+  --color-highlighted-button: #45CCFE;
+  --color-pink: #F670C7;
+  --color-placeholder: #949EA5;
+  --color-header-background: #E8F6FF;
+  --color-footer-background: #E8F6FF;
+  --color-business-canvas-card-background: rgb(229, 245, 255, 50%);
+  --font-size-medium: 1.8rem;
+  --font-weight-medium:  600;
+}
+
+button {
+  border: none
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  background-color: var(--color-background);
+  color: var(--color-body-text);
+}

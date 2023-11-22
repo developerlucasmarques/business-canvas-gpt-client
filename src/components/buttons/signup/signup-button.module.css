@@ -1,0 +1,10 @@
+.signUpButton {
+  width: 17.6rem;
+  height: 4.8rem;
+  color: var(--color-white);
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-medium);
+  background-color: var(--color-button-background);
+  border-radius: 3.6rem;
+}
+
