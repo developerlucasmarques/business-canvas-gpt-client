@@ -1,5 +1,6 @@
 import { type SelectHTMLAttributes } from 'react'
 import { type Control, Controller } from 'react-hook-form'
+import styles from './select.module.css'
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   control: Control
@@ -18,10 +19,10 @@ export const Select: React.FC<SelectProps> = ({ control, label, name, options }:
       name={name}
       control={control}
       render={({ field: { name, onBlur, onChange, value } }) => (
-        <div className="w-full">
-          <p className="mb-2 text-blue-950">{label}</p>
+        <div className={styles.select}>
+          <p className={styles.label}>{label}</p>
           <select
-            className="w-full rounded-lg bg-blue-200 px-5 py-4 text-blue-950 transition-all"
+            className={'w-full rounded-lg bg-blue-200 px-5 py-4 text-blue-950 transition-all'}
             onChange={onChange}
             onBlur={onBlur}
             name={name}

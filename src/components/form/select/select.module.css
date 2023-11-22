@@ -1,0 +1,9 @@
+.select {
+  width: 74rem;
+}
+
+.label {
+  color: var(--color-body-text);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
