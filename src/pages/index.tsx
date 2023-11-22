@@ -8,6 +8,7 @@ import type { GetStaticProps, GetStaticPropsResult } from 'next'
 import { useForm } from 'react-hook-form'
 import styles from '@/styles/home.module.css'
 import { Header } from '@/components/header'
+import { Submit } from '@/components/buttons/submit'
 
 interface Props {
   questions: Question[]
@@ -59,9 +60,7 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
             />
           )}
           {questions.length && (
-            <button className="mt-2 max-w-xs rounded-md border-none bg-blue-500 px-8 py-3 font-bold uppercase text-white transition-all hover:bg-blue-950">
-              Submit
-            </button>
+            <Submit label='Criar'/>
           )}
         </div>
       </form>
