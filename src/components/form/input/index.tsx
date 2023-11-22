@@ -1,4 +1,5 @@
 import { type Control, Controller, type FieldValues } from 'react-hook-form'
+import styles from '../form.module.css'
 
 interface InputElementAttributes extends React.InputHTMLAttributes<HTMLInputElement> {}
 
@@ -14,8 +15,8 @@ export const Input: React.FC<InputProps> = ({ control, name, placeholder }: Inpu
       control={control}
       name={name}
       render={({ field: { name, onBlur, onChange, value } }): any => (
-        <div className="w-full">
-          <p className="mb-2 text-blue-950">{placeholder}</p>
+        <div className={styles.input}>
+          <p className={styles.label}>{placeholder}</p>
           <input
             type="text"
             value={value}

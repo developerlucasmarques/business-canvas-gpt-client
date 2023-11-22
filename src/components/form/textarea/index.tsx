@@ -1,5 +1,6 @@
 import type { TextareaHTMLAttributes } from 'react'
 import { Controller, type Control } from 'react-hook-form'
+import styles from '../form.module.css'
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   control: Control
@@ -13,8 +14,8 @@ export const Textarea: React.FC<TextareaProps> = ({ control, name, placeholder }
       control={control}
       name={name}
       render={({ field: { name, onBlur, onChange, value } }) => (
-        <div className="w-full">
-          <p className="mb-2 text-blue-950">{placeholder}</p>
+        <div className={styles.input}>
+          <p className={styles.label}>{placeholder}</p>
           <textarea
             value={value}
             name={name}
