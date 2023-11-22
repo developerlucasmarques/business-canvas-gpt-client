@@ -6,22 +6,22 @@ import { Textarea } from '@/components/form/textarea'
 import type { Question } from '@/types/question'
 import type { GetStaticProps, GetStaticPropsResult } from 'next'
 import { useForm } from 'react-hook-form'
+import styles from '@/styles/home.module.css'
+import { Header } from '@/components/header'
 
 interface Props {
   questions: Question[]
 }
 
 const Home: React.FC<Props> = ({ questions }: Props) => {
-  const { control, handleSubmit } = useForm()
+  const { control } = useForm()
 
   return (
-    <main className="flex h-auto flex-1 flex-col items-center justify-center bg-white p-6 md:p-24">
-      <form
-        className="flex h-full w-full max-w-xl flex-col items-center justify-center"
-      >
-        <h1 className="my-4 text-4xl font-medium text-blue-950">
-          Create a Business Canvas
-        </h1>
+    <>
+    <Header accountButtonLabel='Entrar'/>
+    <main className="flex h-auto flex-1 flex-col items-center justify-center p-6 md:p-24">
+      <form className="flex h-full w-full max-w-xl flex-col items-center justify-center" >
+        <h1 className={styles.title}>Crie seu Business Canvas</h1>
         <div className="flex w-full flex-col items-center gap-4">
           {questions.map(question => {
             if (question?.alternatives) {
@@ -66,6 +66,7 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
         </div>
       </form>
     </main>
+    </>
   )
 }
 

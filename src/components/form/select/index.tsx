@@ -22,7 +22,7 @@ export const Select: React.FC<SelectProps> = ({ control, label, name, options }:
         <div className={styles.input}>
           <p className={styles.label}>{label}</p>
           <select
-            className={'w-full rounded-lg bg-blue-200 px-5 py-4 text-blue-950 transition-all'}
+            className={'w-full rounded-lg bg-blue-200 px-5 py-4 text-blue-950 transition-all mb-5'}
             onChange={onChange}
             onBlur={onBlur}
             name={name}

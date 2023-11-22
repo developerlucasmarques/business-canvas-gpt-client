@@ -21,7 +21,7 @@ export const Textarea: React.FC<TextareaProps> = ({ control, name, placeholder }
             name={name}
             onBlur={onBlur}
             onChange={onChange}
-            className="w-full rounded-lg bg-blue-200 px-5 py-4 text-gray-800 transition-all"
+            className="w-full rounded-lg bg-blue-200 px-5 py-4 text-gray-800 transition-all mb-5"
             placeholder={placeholder}
             rows={7}
           />

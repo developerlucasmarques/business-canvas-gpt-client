@@ -23,7 +23,7 @@ export const Input: React.FC<InputProps> = ({ control, name, placeholder }: Inpu
             name={name}
             onChange={onChange}
             onBlur={onBlur}
-            className="w-full rounded-lg bg-blue-200 px-5 py-4 text-gray-800 transition-all"
+            className="w-full rounded-lg bg-blue-200 px-5 py-4 text-gray-800 transition-all mb-5"
             placeholder={placeholder}
           />
         </div>
