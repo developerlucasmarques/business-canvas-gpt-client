@@ -1,51 +1,18 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import '@/app/globals.css'
+import { baseUrl } from '@/app/api/env'
 import { Input } from '@/components/form/input'
 import { Select } from '@/components/form/select'
 import { Textarea } from '@/components/form/textarea'
+import type { Question } from '@/types/question'
+import type { GetStaticProps, GetStaticPropsResult } from 'next'
+import { useForm } from 'react-hook-form'
 
-interface Alternatives {
-  id: string
-  description: string
-  questionId: string
+interface Props {
+  questions: Question[]
 }
 
-interface Questions {
-  id: string
-  content: string
-  alternatives?: Alternatives[]
-  typeText?: 'text-area' | 'text'
-}
-
-export interface BusinessCanvasAnswer {
-  questionId: string
-  alternativeId?: string
-  answer?: string
-}
-
-const Home: React.FC = () => {
+const Home: React.FC<Props> = ({ questions }: Props) => {
   const { control, handleSubmit } = useForm()
-  const [questions, setQuestions] = useState<Questions[]>([])
-
-  const getQuestions = async (): Promise<void> => {
-    const response = await fetch('api', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-
-    const json: Questions[] = await response.json()
-    json[1].typeText = 'text'
-    json[2].typeText = 'text-area'
-    setQuestions(json)
-  }
-
-  useEffect(() => {
-    getQuestions().catch(console.error)
-  }, [])
 
   return (
     <main className="flex h-auto flex-1 flex-col items-center justify-center bg-white p-6 md:p-24">
@@ -103,3 +70,11 @@ const Home: React.FC = () => {
 }
 
 export default Home
+
+export const getStaticProps: GetStaticProps = async (): Promise<GetStaticPropsResult<Props>> => {
+  const response = await fetch(`${baseUrl}/question`)
+  const questions: Question[] = await response.json()
+  questions[1].typeText = 'text'
+  questions[2].typeText = 'text-area'
+  return { props: { questions } }
+}
