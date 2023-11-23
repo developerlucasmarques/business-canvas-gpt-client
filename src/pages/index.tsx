@@ -20,11 +20,11 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
   const { control } = useForm()
 
   return (
-       <Layout headerButtonComponents={[
-      <AccountButton label='Entrar' url='/login'/>,
-      <SignUpButton/>
-       ]}>
-    <main className={`${styles.main} flex flex-grow justify-center items-center p-6 md:p-24`}>
+  <Layout headerButtonComponents={[
+    <AccountButton label='Entrar' url='/login'/>,
+    <SignUpButton/>
+  ]}>
+    <div className={'flex flex-grow justify-center items-center p-6 md:p-24'}>
       <form className="flex h-full w-full max-w-xl flex-col items-center justify-center" >
         <h1 className={styles.title}>Crie seu Business Canvas</h1>
         <div className="flex w-full flex-col items-center gap-4">
@@ -68,8 +68,8 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
           )}
         </div>
       </form>
-    </main>
-    </Layout>
+    </div>
+  </Layout>
   )
 }
 

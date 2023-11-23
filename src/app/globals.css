@@ -36,3 +36,14 @@ body {
   padding: 0;
   margin: 0;
 }
+
+.mainContainer {
+  margin: auto;
+  min-height: calc(100vh - 16rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  max-width: 156rem;
+  padding: 0 2rem;
+}

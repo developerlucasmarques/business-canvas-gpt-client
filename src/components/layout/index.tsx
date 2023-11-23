@@ -1,3 +1,4 @@
+import '@/app/globals.css'
 import { Footer } from '../footer'
 import { Header } from '../header'
 
@@ -10,7 +11,7 @@ export const Layout: React.FC<Props> = ({ children, headerButtonComponents }: Pr
   return (
     <>
       <Header buttonComponents={headerButtonComponents}/>
-        {children}
+        <main className='mainContainer'>{children}</main>
       <Footer/>
     </>
   )

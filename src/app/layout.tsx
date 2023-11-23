@@ -4,7 +4,8 @@ import Head from 'next/head'
 
 const fontFamily = Poppins({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700']
+  weight: ['300', '400', '500', '600', '700'],
+  style: 'normal'
 })
 
 interface Props {
