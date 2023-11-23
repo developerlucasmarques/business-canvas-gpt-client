@@ -9,10 +9,8 @@ interface Props {
 
 export const SignUpButton: React.FC<Props> = ({ url, label }: Props) => {
   return (
-  <div className={`${styles.signUpButton} flex justify-center`}>
-    <Link href={url} className={'flex justify-center items-center'}>
+    <Link href={url} className={`${styles.signUpButton} flex justify-center items-center`}>
       <p>{label}</p>
     </Link>
-  </div>
   )
 }
