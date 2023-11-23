@@ -1,5 +1,5 @@
-.header {
-  height: 10rem;
+.footer {
+  height: 8rem;
   background-color: var(--color-header-background);
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.20);
 }
@@ -8,6 +8,9 @@
   max-width: 133.6rem;
   margin: auto;
   height: 100%;
+  color: var(--color-title);
+  font-size: 1.6rem;
+  font-weight: 500;
   padding: 0 1.2rem;
 }
 

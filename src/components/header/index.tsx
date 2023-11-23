@@ -10,7 +10,7 @@ interface Props {
 
 export const Header: React.FC<Props> = ({ accountButtonLabel }: Props) => {
   return (
-    <header className={`${styles.header}`}>
+    <header className={`${styles.header} `}>
       <div className={`${styles.content} flex justify-between items-center`}>
         <Logo url='/'/>
         <div className={`${styles.buttons} flex items-center`}>

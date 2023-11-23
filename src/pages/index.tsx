@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import styles from '@/styles/home.module.css'
 import { Header } from '@/components/header'
 import { Submit } from '@/components/buttons/submit'
+import { Footer } from '@/components/footer'
 
 interface Props {
   questions: Question[]
@@ -20,7 +21,7 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
   return (
     <>
     <Header accountButtonLabel='Entrar'/>
-    <main className="flex h-auto flex-1 flex-col items-center justify-center p-6 md:p-24">
+    <main className={`${styles.main} flex flex-grow justify-center items-center p-6 md:p-24`}>
       <form className="flex h-full w-full max-w-xl flex-col items-center justify-center" >
         <h1 className={styles.title}>Crie seu Business Canvas</h1>
         <div className="flex w-full flex-col items-center gap-4">
@@ -65,6 +66,7 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
         </div>
       </form>
     </main>
+    <Footer/>
     </>
   )
 }

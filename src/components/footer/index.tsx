@@ -1,7 +1,9 @@
-export function Footer() {
+import styles from './footer.module.css'
+
+export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-blue-500 px-4 drop-shadow-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between py-12 text-white">
+    <footer className={`${styles.footer}`}>
+      <div className={`${styles.content} flex justify-between items-center`}>
         <p>BCM © {new Date().getFullYear()}</p>
         <a href="https://slideworks.cc" target="_blank" rel="noreferrer">
           Slideworks
