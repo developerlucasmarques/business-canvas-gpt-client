@@ -1,17 +1,16 @@
 import '@/app/globals.css'
 import { baseUrl } from '@/app/api/env'
+import { AccountButton } from '@/components/buttons/account'
+import { SignUpButton } from '@/components/buttons/signup'
+import { Submit } from '@/components/buttons/submit'
 import { Input } from '@/components/form/input'
 import { Select } from '@/components/form/select'
 import { Textarea } from '@/components/form/textarea'
+import { Layout } from '@/components/layout'
+import styles from '@/styles/home.module.css'
 import type { Question } from '@/types/question'
 import type { GetStaticProps, GetStaticPropsResult } from 'next'
 import { useForm } from 'react-hook-form'
-import styles from '@/styles/home.module.css'
-import { Header } from '@/components/header'
-import { Submit } from '@/components/buttons/submit'
-import { Footer } from '@/components/footer'
-import { SignUpButton } from '@/components/buttons/signup'
-import { AccountButton } from '@/components/buttons/account'
 
 interface Props {
   questions: Question[]
@@ -21,10 +20,10 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
   const { control } = useForm()
 
   return (
-    <>
-    <Header buttonComponents={[
-      <AccountButton label='Entrar' url='/login'/>, <SignUpButton/>
-    ]}/>
+       <Layout headerButtonComponents={[
+      <AccountButton label='Entrar' url='/login'/>,
+      <SignUpButton/>
+       ]}>
     <main className={`${styles.main} flex flex-grow justify-center items-center p-6 md:p-24`}>
       <form className="flex h-full w-full max-w-xl flex-col items-center justify-center" >
         <h1 className={styles.title}>Crie seu Business Canvas</h1>
@@ -70,8 +69,7 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
         </div>
       </form>
     </main>
-    <Footer/>
-    </>
+    </Layout>
   )
 }
 
