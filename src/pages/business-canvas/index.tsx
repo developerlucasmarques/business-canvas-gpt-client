@@ -1,6 +1,7 @@
 import { BcCard } from '@/components/bc-card'
 import { AccountButton } from '@/components/buttons/account'
 import { MyBusinessCanvasButton } from '@/components/buttons/my-business-canvas'
+import { SendLink } from '@/components/buttons/send-link'
 import { Layout } from '@/components/layout'
 import styles from '@/styles/business-canvas.module.css'
 import { useState } from 'react'
@@ -95,6 +96,7 @@ const BusinessCanvas: React.FC = () => {
             {renderCards(['customerSegments'], true)}
           </div>
         </div>
+        <SendLink label='Criar Outro' url='/criar'/>
       </div>
     </Layout>
   )
