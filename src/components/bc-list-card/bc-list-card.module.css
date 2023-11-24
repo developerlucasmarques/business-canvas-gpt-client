@@ -1,0 +1,16 @@
+.listCard {
+  width: 85rem;
+  height: 6rem;
+  color: var(--color-body-text);
+  font-size: 1.7rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-business-canvas-card-background);
+  border-radius: .8rem;
+  margin-bottom: 2.4rem;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.20);
+  align-items: center;
+  line-height: 6rem;
+  padding: 0 2rem;
+}
