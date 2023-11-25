@@ -6,6 +6,6 @@ interface Props {
 
 export const Submit: React.FC<Props> = ({ label }: Props) => {
   return (
-    <button className={styles.submit}>{label}</button>
+    <input type='submit' value={label} className={styles.submit}/>
   )
 }

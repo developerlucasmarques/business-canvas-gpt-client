@@ -1,5 +1,5 @@
-import '@/app/globals.css'
 import { baseUrl } from '@/app/api/env'
+import '@/app/globals.css'
 import { AccountButton } from '@/components/buttons/account'
 import { SignUpButton } from '@/components/buttons/signup'
 import { Submit } from '@/components/buttons/submit'
@@ -17,7 +17,14 @@ interface Props {
 }
 
 const Home: React.FC<Props> = ({ questions }: Props) => {
-  const { control } = useForm()
+  const { control, handleSubmit } = useForm({
+    mode: 'onBlur',
+    defaultValues: {}
+  })
+
+  const handleFormSubmit = (data: any): any => {
+    console.log(data)
+  }
 
   return (
   <Layout headerButtonComponents={[
@@ -25,7 +32,7 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
     <SignUpButton/>
   ]}>
     <div className={'flex flex-grow justify-center items-center p-6 md:p-24'}>
-      <form className="flex h-full w-full max-w-xl flex-col items-center justify-center" >
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="flex h-full w-full max-w-xl flex-col items-center justify-center" >
         <h1 className={styles.title}>Crie seu Business Canvas</h1>
         <div className="flex w-full flex-col items-center gap-4">
           {questions.map(question => {
@@ -50,22 +57,13 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
                   control={control}
                   name={question.id}
                   placeholder={question.content}
-                  className="w-full rounded-lg bg-blue-200 px-5 py-4 text-blue-950 transition-all"
+                  rules={{ minLength: { value: 10, message: 'message' }, required: true }}
                 />
               )
             }
             return null
           })}
-          {!questions.length && (
-            <img
-              src="/loading.svg"
-              alt="Loading content"
-              className="animate-spin"
-            />
-          )}
-          {questions.length && (
-            <Submit label='Criar'/>
-          )}
+          <Submit label='Criar'/>
         </div>
       </form>
     </div>
