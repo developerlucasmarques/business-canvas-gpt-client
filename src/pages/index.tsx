@@ -63,7 +63,7 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
             }
             return null
           })}
-          <Submit label='Criar'/>
+          <Submit width='20rem' label='Criar'/>
         </div>
       </form>
     </div>
