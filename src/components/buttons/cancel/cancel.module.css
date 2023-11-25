@@ -1,0 +1,13 @@
+.cancelLinkContainer {
+  height: 5.2rem;
+  color: var(--color-body-text);
+  font-weight: 600;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
