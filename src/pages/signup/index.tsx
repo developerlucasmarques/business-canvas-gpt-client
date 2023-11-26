@@ -26,10 +26,12 @@ const SignUp: React.FC = () => {
        }, {
          label: 'Senha',
          placeholder: 'Sua senha...',
+         type: 'password',
          rules: { required: true, minLength: { value: 8, message: 'Senha inválida' } }
        }, {
          label: 'Confirmação de senha',
          placeholder: 'Confirme sua senha...',
+         type: 'password',
          rules: { required: true, minLength: { value: 8, message: 'Confirmação de senha inválida' } }
        }]}
       />

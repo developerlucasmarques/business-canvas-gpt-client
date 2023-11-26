@@ -56,7 +56,7 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
             </div>
           </form>
           <div className={`${styles.footer}`}>
-            <p>{infoFooter}<Link href={infoFooterButtonUrl}>{infoFooterButtonLabel}</Link></p>
+            <p>{infoFooter} <Link href={infoFooterButtonUrl}>{infoFooterButtonLabel}</Link></p>
           </div>
         </div>
       </div>
