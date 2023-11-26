@@ -1,6 +1,14 @@
 import { AccessFormCard } from '@/components/access/access-form-card'
 import { SignUpButton } from '@/components/buttons/signup'
 import { Layout } from '@/components/layout'
+import { z } from 'zod'
+
+const required_error = 'Campo obrigatório'
+
+const LoginFormSchema = z.object({
+  email: z.string({ required_error }).email('Informe um email válido'),
+  password: z.string({ required_error })
+})
 
 const Login: React.FC = () => {
   return (
@@ -14,19 +22,20 @@ const Login: React.FC = () => {
        infoFooterButtonLabel='Cadastre-se'
        infoFooterButtonUrl='/signup'
        successButtonLabel='Entrar'
+       validationSchema={LoginFormSchema}
        formAction={'/login'}
        accessInputs={[{
          label: 'Email',
          placeholder: 'exemplo@gmail.com',
          name: 'email',
-         rules: { required: true, minLength: { value: 6, message: 'Email inválido' } },
+         validationSchema: LoginFormSchema.pick({ email: true }),
          type: 'email'
        }, {
          label: 'Senha',
          placeholder: 'Sua senha...',
          type: 'password',
          name: 'password',
-         rules: { required: true, minLength: { value: 8, message: 'Senha inválida' } }
+         validationSchema: LoginFormSchema.pick({ password: true })
        }]}
       />
     </Layout>
