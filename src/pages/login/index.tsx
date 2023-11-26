@@ -14,6 +14,7 @@ const Login: React.FC = () => {
        infoFooterButtonLabel='Cadastre-se'
        infoFooterButtonUrl='/signup'
        successButtonLabel='Entrar'
+       formAction={'/login'}
        accessInputs={[{
          label: 'Email',
          placeholder: 'exemplo@gmail.com',

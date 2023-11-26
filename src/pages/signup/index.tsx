@@ -14,6 +14,7 @@ const SignUp: React.FC = () => {
        infoFooterButtonLabel='Entrar'
        infoFooterButtonUrl='/login'
        successButtonLabel='Confirmar'
+       formAction={'/signup'}
        accessInputs={[{
          label: 'Nome Completo',
          placeholder: 'Seu nome...',

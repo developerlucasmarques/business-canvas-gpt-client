@@ -5,8 +5,9 @@ import { Submit } from '@/components/buttons/submit'
 import { AccessInput } from '@/components/form/access-input'
 import { type InputProps } from '@/types/input'
 import Link from 'next/link'
-import { useForm } from 'react-hook-form'
+import { Form, useForm } from 'react-hook-form'
 import styles from './access-form-card.module.css'
+import { baseUrl } from '@/app/api/env'
 
 type AccessInputType = Omit<InputProps, 'control'>
 
@@ -18,17 +19,15 @@ interface Props {
   infoFooter: string
   infoFooterButtonLabel: string
   infoFooterButtonUrl: string
+  formAction: string
 }
 
 export const AccessFormCard: React.FC<Props> = (props: Props) => {
-  const { accessInputs, successButtonLabel, info, infoFooter, infoFooterButtonLabel, title, infoFooterButtonUrl } = props
-  const { handleSubmit, control } = useForm({
-    mode: 'onBlur',
-    defaultValues: {}
-  })
+  const { accessInputs, successButtonLabel, info, infoFooter, infoFooterButtonLabel, title, infoFooterButtonUrl, formAction } = props
+  const { control } = useForm()
 
-  const handleFormSubmit = (data: any): any => {
-    console.log(data)
+  const handleSuccess = async (response: any): Promise<void> => {
+    console.log(response)
   }
 
   return (
@@ -40,7 +39,14 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
             info={info}
           />
 
-          <form className={`${styles.form}`} onSubmit={handleSubmit(handleFormSubmit)}>
+          <Form
+            className={`${styles.form}`}
+            control={control}
+            action={`${baseUrl}${formAction}`}
+            method='post'
+            onSuccess={handleSuccess}
+            encType='application/json'
+          >
             {accessInputs.map((input, index) => (
               <AccessInput
                 key={index}
@@ -55,7 +61,7 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
             <div className={`${styles.buttonsContainer}`}>
               <CancelLink width='48%' label='Cancelar'/> <Submit width='48%' label={successButtonLabel}/>
             </div>
-          </form>
+          </Form>
           <div className={`${styles.footer}`}>
             <p>{infoFooter} <Link href={infoFooterButtonUrl}>{infoFooterButtonLabel}</Link></p>
           </div>
