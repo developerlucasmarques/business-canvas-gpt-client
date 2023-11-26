@@ -1,26 +1,41 @@
 import { type InputProps } from '@/types/input'
+import { useState } from 'react'
 import { Controller } from 'react-hook-form'
+import { ZodError } from 'zod'
 import styles from './access-input.module.css'
 
 export const AccessInput: React.FC<InputProps> = (props: InputProps) => {
-  const { control, placeholder, rules, label, type } = props
+  const { control, placeholder, validationSchema, label, type } = props
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  const handleValidation = (value: any): void => {
+    try {
+      validationSchema.parse({ [props.name]: value })
+      setErrorMessage(null)
+    } catch (error) {
+      if (error instanceof ZodError) {
+        setErrorMessage(error.errors[0].message)
+      }
+    }
+  }
+
   return (
     <Controller
       control={control}
       name={props.name}
-      rules={rules}
-      render={({ field: { name, onBlur, onChange, value }, fieldState }) => (
+      defaultValue={''}
+      render={({ field: { name, onBlur, onChange, value } }) => (
         <div className={styles.inputContainer}>
           <p className={styles.inputContainerInfo}>{label}</p>
           <input
-            type={(type) ?? 'text'}
+            type={type ?? 'text'}
             value={value}
             name={name}
-            onChange={onChange}
-            onBlur={onBlur}
+            onChange={(event) => { onChange(event); handleValidation(event.target.value) }}
+            onBlur={() => { onBlur(); handleValidation(value) }}
             placeholder={placeholder}
-            />
-            {(fieldState.error?.type === 'required') && <p className={styles.inputFails}>Campo obrigatório</p> }
+          />
+          {errorMessage && <p className={styles.inputFails}>{errorMessage}</p>}
         </div>
       )}
     />

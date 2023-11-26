@@ -1,13 +1,15 @@
+import { baseUrl } from '@/app/api/env'
 import { InfoAuthCard } from '@/components/access/info-auth-card'
 import { Back } from '@/components/buttons/back'
 import { CancelLink } from '@/components/buttons/cancel'
 import { Submit } from '@/components/buttons/submit'
 import { AccessInput } from '@/components/form/access-input'
 import { type InputProps } from '@/types/input'
+import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { Form, useForm } from 'react-hook-form'
+import { type z } from 'zod'
 import styles from './access-form-card.module.css'
-import { baseUrl } from '@/app/api/env'
 
 type AccessInputType = Omit<InputProps, 'control'>
 
@@ -19,16 +21,13 @@ interface Props {
   infoFooter: string
   infoFooterButtonLabel: string
   infoFooterButtonUrl: string
+  validationSchema: z.ZodObject<any>
   formAction: string
 }
 
 export const AccessFormCard: React.FC<Props> = (props: Props) => {
-  const { accessInputs, successButtonLabel, info, infoFooter, infoFooterButtonLabel, title, infoFooterButtonUrl, formAction } = props
-  const { control } = useForm()
-
-  const handleSuccess = async (response: any): Promise<void> => {
-    console.log(response)
-  }
+  const { accessInputs, successButtonLabel, info, infoFooter, infoFooterButtonLabel, title, infoFooterButtonUrl, formAction, validationSchema } = props
+  const { control } = useForm({ resolver: zodResolver(validationSchema) })
 
   return (
     <div className={`${styles.container}`}>
@@ -44,16 +43,15 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
             control={control}
             action={`${baseUrl}${formAction}`}
             method='post'
-            onSuccess={handleSuccess}
             encType='application/json'
           >
             {accessInputs.map((input, index) => (
               <AccessInput
                 key={index}
+                validationSchema={input.validationSchema}
                 control={control}
                 label={input.label}
                 placeholder={input.placeholder}
-                rules={input.rules}
                 type={input.type}
                 name={input.name}
               />

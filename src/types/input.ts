@@ -1,5 +1,6 @@
 import type { HTMLInputTypeAttribute } from 'react'
-import type { Control, FieldValues, RegisterOptions } from 'react-hook-form'
+import type { Control, FieldValues } from 'react-hook-form'
+import { type z } from 'zod'
 
 interface InputElementAttributes extends React.InputHTMLAttributes<HTMLInputElement> {}
 
@@ -9,5 +10,5 @@ export interface InputProps extends InputElementAttributes {
   name: string
   type?: HTMLInputTypeAttribute
   placeholder: string
-  rules: Omit<RegisterOptions<FieldValues, any>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>
+  validationSchema: z.ZodType<any, any, any>
 }
