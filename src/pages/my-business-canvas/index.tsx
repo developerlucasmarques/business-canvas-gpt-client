@@ -1,17 +1,15 @@
 import { BcListCard } from '@/components/bc-list-card'
 import { AccountButton } from '@/components/buttons/account'
-import { MyBusinessCanvasButton } from '@/components/buttons/my-business-canvas'
 import { SendLink } from '@/components/buttons/send-link'
 import { Layout } from '@/components/layout'
-import { useState } from 'react'
 import styles from '@/styles/all-business-canvas.module.css'
+import { useState } from 'react'
 
-const AllBusinessCanvas: React.FC = () => {
+const MyBusinessCanvas: React.FC = () => {
   const [canvas] = useState(canvasList)
 
   return (
     <Layout headerButtonComponents={[
-      <MyBusinessCanvasButton key="myCanvasButton" url='/my-business-canvas'/>,
       <AccountButton key="accountButton" label='Convidado' url='/user'/>
     ]}>
       <div className={styles.container}>
@@ -25,7 +23,7 @@ const AllBusinessCanvas: React.FC = () => {
   )
 }
 
-export default AllBusinessCanvas
+export default MyBusinessCanvas
 
 const canvasList = [
   { id: '1', name: 'Empresa de Software', createdAt: '01/02/2023' },

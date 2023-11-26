@@ -6,6 +6,7 @@ interface InputElementAttributes extends React.InputHTMLAttributes<HTMLInputElem
 export interface InputProps extends InputElementAttributes {
   control: Control<FieldValues>
   label: string
+  name: string
   type?: HTMLInputTypeAttribute
   placeholder: string
   rules: Omit<RegisterOptions<FieldValues, any>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>

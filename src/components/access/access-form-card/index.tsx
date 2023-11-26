@@ -49,6 +49,7 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
                 placeholder={input.placeholder}
                 rules={input.rules}
                 type={input.type}
+                name={input.name}
               />
             ))}
             <div className={`${styles.buttonsContainer}`}>

@@ -17,12 +17,14 @@ const Login: React.FC = () => {
        accessInputs={[{
          label: 'Email',
          placeholder: 'exemplo@gmail.com',
+         name: 'email',
          rules: { required: true, minLength: { value: 6, message: 'Email inválido' } },
          type: 'email'
        }, {
          label: 'Senha',
          placeholder: 'Sua senha...',
          type: 'password',
+         name: 'password',
          rules: { required: true, minLength: { value: 8, message: 'Senha inválida' } }
        }]}
       />

@@ -7,7 +7,7 @@ export const AccessInput: React.FC<InputProps> = (props: InputProps) => {
   return (
     <Controller
       control={control}
-      name={label}
+      name={props.name}
       rules={rules}
       render={({ field: { name, onBlur, onChange, value }, fieldState }) => (
         <div className={styles.inputContainer}>

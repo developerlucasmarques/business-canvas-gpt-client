@@ -17,21 +17,25 @@ const SignUp: React.FC = () => {
        accessInputs={[{
          label: 'Nome Completo',
          placeholder: 'Seu nome...',
+         name: 'name',
          rules: { required: true, minLength: { value: 3, message: 'Digite seu nome completo' } }
        }, {
          label: 'Email',
          placeholder: 'exemplo@gmail.com',
+         name: 'email',
          rules: { required: true, minLength: { value: 6, message: 'Email inválido' } },
          type: 'email'
        }, {
          label: 'Senha',
          placeholder: 'Sua senha...',
          type: 'password',
+         name: 'password',
          rules: { required: true, minLength: { value: 8, message: 'Senha inválida' } }
        }, {
          label: 'Confirmação de senha',
          placeholder: 'Confirme sua senha...',
          type: 'password',
+         name: 'passwordConfirmation',
          rules: { required: true, minLength: { value: 8, message: 'Confirmação de senha inválida' } }
        }]}
       />
