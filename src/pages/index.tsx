@@ -1,5 +1,7 @@
-import { baseUrl } from '@/app/api/env'
 import '@/app/globals.css'
+import type { GetStaticProps, GetStaticPropsResult } from 'next'
+import type { Question } from '@/types/question'
+import { baseUrl } from '@/app/api/env'
 import { AccountButton } from '@/components/buttons/account'
 import { SignUpButton } from '@/components/buttons/signup'
 import { Submit } from '@/components/buttons/submit'
@@ -7,10 +9,8 @@ import { Input } from '@/components/form/input'
 import { Select } from '@/components/form/select'
 import { Textarea } from '@/components/form/textarea'
 import { Layout } from '@/components/layout'
-import styles from '@/styles/home.module.css'
-import type { Question } from '@/types/question'
-import type { GetStaticProps, GetStaticPropsResult } from 'next'
 import { useForm } from 'react-hook-form'
+import styles from '@/styles/home.module.css'
 
 interface Props {
   questions: Question[]
@@ -46,11 +46,8 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
                   options={question.alternatives}
                 />
               )
-            } else if (
-              question?.typeText === 'text' ||
-              question?.typeText === 'text-area'
-            ) {
-              const Component = question.typeText === 'text' ? Input : Textarea
+            } else {
+              const Component = question.type === 'text' ? Input : Textarea
               return (
                 <Component
                   key={question.id}
@@ -61,7 +58,6 @@ const Home: React.FC<Props> = ({ questions }: Props) => {
                 />
               )
             }
-            return null
           })}
           <Submit width='20rem' label='Criar'/>
         </div>
@@ -76,7 +72,5 @@ export default Home
 export const getStaticProps: GetStaticProps = async (): Promise<GetStaticPropsResult<Props>> => {
   const response = await fetch(`${baseUrl}/question`)
   const questions: Question[] = await response.json()
-  questions[1].typeText = 'text'
-  questions[2].typeText = 'text-area'
   return { props: { questions } }
 }
