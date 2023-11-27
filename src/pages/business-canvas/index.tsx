@@ -79,21 +79,28 @@ const BusinessCanvas: React.FC = () => {
     <Layout headerButtonComponents={headerButtons}>
       <div className={`${styles.container} flex justify-center flex-col items-center`}>
         <h1>{businessCanvas.name}</h1>
-        <div className={`${styles.businessCanvasContainer}`}>
-          <div className={`${styles.colum}`}>
-            {renderCards(['keyPartnerships'], true)}
+        <div className={styles.businessCanvasContainer}>
+          <div className={`${styles.businessCanvasColumnsContainer}`}>
+            <div className={`${styles.colum}`}>
+              {renderCards(['keyPartnerships'], true)}
+            </div>
+            <div className={`${styles.colum}`}>
+              {renderCards(['keyActivities', 'keyResources'], false)}
+            </div>
+            <div className={`${styles.colum}`}>
+              {renderCards(['valuePropositions'], true)}
+            </div>
+            <div className={`${styles.colum}`}>
+              {renderCards(['customerRelationships', 'channels'], false)}
+            </div>
+            <div className={`${styles.colum}`}>
+              {renderCards(['customerSegments'], true)}
+            </div>
           </div>
-          <div className={`${styles.colum}`}>
-            {renderCards(['keyActivities', 'keyResources'], false)}
-          </div>
-          <div className={`${styles.colum}`}>
-            {renderCards(['valuePropositions'], true)}
-          </div>
-          <div className={`${styles.colum}`}>
-            {renderCards(['customerRelationships', 'channels'], false)}
-          </div>
-          <div className={`${styles.colum}`}>
-            {renderCards(['customerSegments'], true)}
+          <div>
+          <div className={`${styles.line}`}>
+              {renderCards(['revenueStreams', 'costStructure'], true)}
+            </div>
           </div>
         </div>
         <SendLink label='Criar Outro' url='/criar'/>

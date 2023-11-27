@@ -11,17 +11,26 @@
 }
 
 .businessCanvasContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4rem;
+}
+
+.businessCanvasColumnsContainer {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  height: 67rem;
-  margin-bottom: 4rem;
+  height: 68rem;
+  margin-bottom: 1.4rem;
 }
 
 .colum {
   display: flex;
+  width: 100%;
   flex-direction: column;
   height: 100%;
 }
 
-
+.line {
+  display: flex;
+}
