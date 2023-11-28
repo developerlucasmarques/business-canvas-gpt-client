@@ -45,7 +45,7 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
 
   return (
     <div className={`${styles.container}`}>
-        <Back url='/'/>
+        <Back/>
         <div className={`${styles.accessContainer}`}>
           <InfoAuthCard
             title={title}
