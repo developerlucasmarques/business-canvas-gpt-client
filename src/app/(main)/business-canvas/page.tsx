@@ -2,20 +2,8 @@
 import { BcCard } from '@/app/(components)/business-canvas/bc-card'
 import { SendLink } from '@/app/(components)/buttons/send-link'
 import styles from '@/styles/business-canvas.module.css'
+import { type IBusinessCanvas } from '@/types/business-canvas'
 import { useState } from 'react'
-
-interface IBusinessCanvas {
-  name: string
-  customerSegments: string[]
-  valuePropositions: string[]
-  channels: string[]
-  customerRelationships: string[]
-  revenueStreams: string[]
-  keyResources: string[]
-  keyActivities: string[]
-  keyPartnerships: string[]
-  costStructure: string[]
-}
 
 type ComponentName =
   | 'customerSegments'
