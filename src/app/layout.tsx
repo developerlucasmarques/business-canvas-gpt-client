@@ -1,7 +1,8 @@
 import { Poppins } from 'next/font/google'
 import Head from 'next/head'
+import { Footer } from './(components)/footer'
+import { Header } from './(components)/header'
 import './globals.css'
-import { Layout } from './(components)/layout'
 
 const fontFamily = Poppins({
   subsets: ['latin'],
@@ -32,9 +33,11 @@ const RootLayout: React.FC<Props> = ({ children }: Props) => {
         <meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />
       </Head>
       <body>
-        <Layout>
-          {children}
-        </Layout>
+        <Header/>
+          <main className='mainContainer'>
+            {children}
+          </main>
+        <Footer/>
       </body>
     </html>
   )

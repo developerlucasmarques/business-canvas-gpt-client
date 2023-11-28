@@ -1,7 +1,5 @@
 'use client'
 import { AccessFormCard } from '@/app/(components)/access/access-form-card'
-import { SignUpButton } from '@/app/(components)/buttons/signup'
-import { Layout } from '@/app/(components)/layout'
 import { z } from 'zod'
 
 const required_error = 'Campo obrigatório'
@@ -13,9 +11,6 @@ const LoginFormSchema = z.object({
 
 const Login: React.FC = () => {
   return (
-    <Layout
-      headerButtonComponents={[<SignUpButton/>]}
-    >
       <AccessFormCard
        title='Bem Vindo(a) de volta!'
        info='Informe seu email e senha para entrar.'
@@ -39,7 +34,6 @@ const Login: React.FC = () => {
          validationSchema: LoginFormSchema.pick({ password: true })
        }]}
       />
-    </Layout>
   )
 }
 

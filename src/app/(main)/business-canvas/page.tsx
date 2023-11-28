@@ -1,9 +1,6 @@
 'use client'
 import { BcCard } from '@/app/(components)/bc-card'
-import { AccountButton } from '@/app/(components)/buttons/account'
-import { MyBusinessCanvasButton } from '@/app/(components)/buttons/my-business-canvas'
 import { SendLink } from '@/app/(components)/buttons/send-link'
-import { Layout } from '@/app/(components)/layout'
 import styles from '@/styles/business-canvas.module.css'
 import { useState } from 'react'
 
@@ -71,13 +68,7 @@ const BusinessCanvas: React.FC = () => {
     ))
   }
 
-  const headerButtons = [
-    <MyBusinessCanvasButton key="myCanvasButton" url='/my-business-canvas'/>,
-    <AccountButton key="accountButton" label='Convidado' url='/user'/>
-  ]
-
   return (
-    <Layout headerButtonComponents={headerButtons}>
       <div className={`${styles.container} flex justify-center flex-col items-center`}>
         <h1>{businessCanvas.name}</h1>
         <div className={styles.businessCanvasContainer}>
@@ -106,7 +97,6 @@ const BusinessCanvas: React.FC = () => {
         </div>
         <SendLink label='Criar Outro' url='/criar'/>
       </div>
-    </Layout>
   )
 }
 
