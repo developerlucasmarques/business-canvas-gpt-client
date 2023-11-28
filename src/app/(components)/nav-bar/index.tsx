@@ -1,5 +1,5 @@
 'use client'
-import { useUserInfoCtx } from '@/app/(context)/global-context'
+import { useUserInfoCtx } from '@/app/(contexts)/global-context'
 import { NavsHeaders } from '@/utils/navs'
 import { usePathname } from 'next/navigation'
 import React, { type ReactNode } from 'react'
