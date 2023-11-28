@@ -1,6 +1,6 @@
-import type React from 'react'
+import { type ReactNode } from 'react'
 
 export interface INavs {
-  id: number
-  element: React.ReactNode
+  routeName: string
+  elements: ReactNode[]
 }

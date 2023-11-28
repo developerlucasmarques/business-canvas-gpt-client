@@ -1,24 +1,25 @@
 'use client'
 import { useUserInfoCtx } from '@/app/(context)/global-context'
 import { NavsHeaders } from '@/utils/navs'
-import React from 'react'
+import { usePathname } from 'next/navigation'
+import React, { type ReactNode } from 'react'
 import { AccountButton } from '../buttons/account'
 
 export const NavBar: React.FC = () => {
   const { userName } = useUserInfoCtx()
+  console.log('NAME', userName)
+  const pathName = usePathname()
 
-  return (
-    <ul className='flex items-center gap-4'>
-      {userName
-        ? (
-        <li><AccountButton label={userName} url='/user'/></li>
-          )
-        : (
-            NavsHeaders.map((item) => (
-            <li key={item.id}>{item.element}</li>
-            ))
-          )
+  const renderNavElements = (): ReactNode[] => {
+    if (userName) {
+      return [<AccountButton label={userName} url='/' />]
     }
-    </ul>
-  )
+    const currentNav = NavsHeaders.find(item => item.routeName === pathName)
+    return (
+      currentNav?.elements.map((element, index) => (
+          <li key={index}>{element}</li>
+      )) ?? []
+    )
+  }
+  return <ul className='flex items-center gap-4'>{renderNavElements()}</ul>
 }

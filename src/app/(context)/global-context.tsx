@@ -8,7 +8,7 @@ interface ContextProps {
   setUserName: (name: string) => void
 }
 
-export const GlobalContext = createContext<ContextProps>({
+const GlobalContext = createContext<ContextProps>({
   userName: '',
   setUserName: (name: string) => name
 })
