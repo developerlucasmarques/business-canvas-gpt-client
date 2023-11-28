@@ -7,7 +7,6 @@ import { AccountButton } from '../buttons/account'
 
 export const NavBar: React.FC = () => {
   const { userName } = useUserInfoCtx()
-  console.log('NAME', userName)
   const pathName = usePathname()
 
   const renderNavElements = (): ReactNode[] => {
