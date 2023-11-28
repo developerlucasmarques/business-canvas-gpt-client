@@ -1,5 +1,5 @@
 'use client'
-import { BcCard } from '@/app/(components)/bc-card'
+import { BcCard } from '@/app/(components)/business-canvas/bc-card'
 import { SendLink } from '@/app/(components)/buttons/send-link'
 import styles from '@/styles/business-canvas.module.css'
 import { useState } from 'react'
