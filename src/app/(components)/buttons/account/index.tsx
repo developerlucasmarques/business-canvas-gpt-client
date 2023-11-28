@@ -1,5 +1,4 @@
 'use client'
-import '@/app/globals.css'
 import styles from './account-button.module.css'
 import Link from 'next/link'
 

@@ -1,5 +1,4 @@
 import { baseUrl } from '@/app/api/env'
-import '@/app/globals.css'
 import { QuestionsForm } from './(components)/questions-form'
 
 const Home: React.FC = async () => {

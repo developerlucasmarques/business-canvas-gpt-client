@@ -1,4 +1,3 @@
-import '@/app/globals.css'
 import Link from 'next/link'
 import styles from './logo.module.css'
 import Image from 'next/image'

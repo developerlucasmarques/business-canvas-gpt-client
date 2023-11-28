@@ -1,4 +1,3 @@
-import '@/app/globals.css'
 import styles from './my-business-canvas.module.css'
 import Link from 'next/link'
 

@@ -1,4 +1,3 @@
-import '@/app/globals.css'
 import { Logo } from '@/app/(components)/logo'
 import styles from './header.module.css'
 import { NavBar } from '../nav-bar'
