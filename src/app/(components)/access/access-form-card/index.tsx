@@ -33,13 +33,12 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
   const { accessInputs, successButtonLabel, info, infoFooter, infoFooterButtonLabel, title, infoFooterButtonUrl, formAction, validationSchema } = props
   const { control } = useForm({ resolver: zodResolver(validationSchema) })
   const router = useRouter()
-  const { userName, setUserName } = useUserInfoCtx()
+  const { setUserName, setAccessToken } = useUserInfoCtx()
 
   const handleSuccess = async ({ response }: { response: Response }): Promise<void> => {
     const res: LoginResponse = await response.json()
-    console.log('RES', res)
     setUserName(res.userName)
-    console.log('AccessFormCard', userName)
+    setAccessToken(res.token)
     router.push('/')
   }
 
