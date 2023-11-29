@@ -4,12 +4,19 @@ import { NavsHeaders } from '@/utils/navs'
 import { usePathname } from 'next/navigation'
 import React, { type ReactNode } from 'react'
 import { AccountButton } from '../buttons/account'
+import { MyBusinessCanvasButton } from '../buttons/my-business-canvas'
 
 export const NavBar: React.FC = () => {
   const { userName } = useUserInfoCtx()
   const pathName = usePathname()
 
   const renderNavElements = (): ReactNode[] => {
+    if ((userName && pathName === '/') || (userName && /^\/business-canvas\/.*$/.test(pathName))) {
+      return [
+        <MyBusinessCanvasButton url='/business-canvas' />,
+        <AccountButton label={userName} url='/' />
+      ]
+    }
     if (userName) {
       return [<AccountButton label={userName} url='/' />]
     }
@@ -20,5 +27,5 @@ export const NavBar: React.FC = () => {
       )) ?? []
     )
   }
-  return <ul className='flex items-center gap-4'>{renderNavElements()}</ul>
+  return <ul className='flex items-center'>{renderNavElements()}</ul>
 }
