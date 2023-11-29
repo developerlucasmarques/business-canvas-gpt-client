@@ -35,3 +35,8 @@
 .footer a {
   color: var(--color-button-background)
 }
+
+.inputFails {
+  color: red;
+  font-size: 1.6rem;
+}

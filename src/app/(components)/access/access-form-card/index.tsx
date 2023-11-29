@@ -14,6 +14,9 @@ import { Form, useForm } from 'react-hook-form'
 import { type z } from 'zod'
 import styles from './access-form-card.module.css'
 import { useRouter } from 'next/navigation'
+import { type AuthData } from '@/types/auth'
+import { useState } from 'react'
+import { type ErrorReponse } from '@/types/api-responses/error-response'
 
 type AccessInputType = Omit<InputProps, 'control'>
 
@@ -32,13 +35,32 @@ interface Props {
 export const AccessFormCard: React.FC<Props> = (props: Props) => {
   const { accessInputs, successButtonLabel, info, infoFooter, infoFooterButtonLabel, title, infoFooterButtonUrl, formAction, validationSchema } = props
   const { control } = useForm({ resolver: zodResolver(validationSchema) })
-  const router = useRouter()
   const { setUserName, setAccessToken } = useUserInfoCtx()
+  const [validPasswordConfirmation, setValidPasswordConfirmation] = useState(true)
+  const [emailInUseError, setEmailInUseError] = useState(false)
+  const [invalidCredentials, setInvalidCredentials] = useState(false)
+  const router = useRouter()
 
-  const handleSuccess = async ({ response }: { response: Response }): Promise<void> => {
-    const res: LoginResponse = await response.json()
-    setUserName(res.userName)
-    setAccessToken(res.token)
+  const handleSubmit = async (data: AuthData): Promise<void> => {
+    if (data.passwordConfirmation && data.password !== data.passwordConfirmation) {
+      setValidPasswordConfirmation(false); return
+    }
+    const response = await fetch(`${apiBaseUrl}${formAction}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    const res: ErrorReponse | LoginResponse = await response.json()
+    if ('error' in res) {
+      if (res.statusCode >= 401 && res.statusCode < 500) {
+        setInvalidCredentials(true); return
+      }
+      if (res.name === 'EmailInUseError') {
+        setEmailInUseError(true)
+      }
+      return
+    }
+    setUserName(res.userName); setAccessToken(res.token)
     router.push('/')
   }
 
@@ -50,14 +72,10 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
             title={title}
             info={info}
           />
-
           <Form
             className={`${styles.form}`}
             control={control}
-            action={`${apiBaseUrl}${formAction}`}
-            onSuccess={handleSuccess}
-            method='post'
-            encType='application/json'
+            onSubmit={async (e) => { await handleSubmit(e.data as AuthData) }}
           >
             {accessInputs.map((input, index) => (
               <AccessInput
@@ -70,6 +88,9 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
                 name={input.name}
               />
             ))}
+            {!validPasswordConfirmation && <p className={styles.inputFails}>Senha não coincide com a confirmação</p>}
+            {emailInUseError && <p className={styles.inputFails}>Email já está em uso</p>}
+            {invalidCredentials && <p className={styles.inputFails}>Email ou senha incorretos</p>}
             <div className={`${styles.buttonsContainer}`}>
               <CancelLink width='48%' label='Cancelar'/> <Submit width='48%' label={successButtonLabel}/>
             </div>
