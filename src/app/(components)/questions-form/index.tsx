@@ -15,14 +15,16 @@ import { type Question } from '@/types/question'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { LoadingOverlay } from '../loading-overlay'
 
 interface Props {
   questions: Question[]
 }
 
 export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
-  const { control, handleSubmit } = useForm()
   const [submitDisabled, setSubmitDisabled] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const { control, handleSubmit } = useForm()
   const { accessToken } = useUserInfoCtx()
   const router = useRouter()
 
@@ -45,6 +47,7 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
   const handleFormSubmit = async (answers: IAnswer): Promise<void> => {
     setSubmitDisabled(true)
     const formattedAnswers = formatAnswers(answers)
+    setLoading(true)
     const response = await fetch(`${baseUrl}/business-canvas`, {
       method: 'POST',
       headers: {
@@ -54,11 +57,12 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
       body: JSON.stringify(formattedAnswers)
     })
     const res: HttpResponse<ErrorReponse> | HttpResponse<CreateBusinessCanvasReponse> = await response.json()
+    setLoading(false)
     if ('error' in res) {
       console.log('FAILS', res)
     } else {
       console.log('Success', res)
-      router.push('/business-canvas')
+      router.push('/business-canvas/123')
     }
   }
 
@@ -68,6 +72,7 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
     className="flex h-full w-full max-w-xl flex-col items-center justify-center"
   >
     <h1 className={styles.title}>Crie seu Business Canvas</h1>
+    {loading && <LoadingOverlay label='A criação de seu Business Canvas pode demorar um pouco' />}
     <div className="flex w-full flex-col items-center gap-4">
       {questions.map(question => {
         if (question?.alternatives) {
