@@ -13,6 +13,7 @@ import { type ErrorReponse } from '@/types/api-responses/error-response'
 import { type HttpResponse } from '@/types/api-responses/http-response'
 import { type Question } from '@/types/question'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 interface Props {
@@ -21,6 +22,7 @@ interface Props {
 
 export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
   const { control, handleSubmit } = useForm()
+  const [submitDisabled, setSubmitDisabled] = useState(false)
   const { accessToken } = useUserInfoCtx()
   const router = useRouter()
 
@@ -41,6 +43,7 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
   }
 
   const handleFormSubmit = async (answers: IAnswer): Promise<void> => {
+    setSubmitDisabled(true)
     const formattedAnswers = formatAnswers(answers)
     const response = await fetch(`${baseUrl}/business-canvas`, {
       method: 'POST',
@@ -90,7 +93,7 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
           )
         }
       })}
-      <Submit width='20rem' label='Criar'/>
+      <Submit disabled={submitDisabled} width='20rem' label='Criar'/>
     </div>
   </form>
   )
