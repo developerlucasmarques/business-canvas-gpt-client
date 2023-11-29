@@ -1,9 +1,13 @@
 'use client'
 import { BcCard } from '@/app/(components)/business-canvas/bc-card'
 import { SendLink } from '@/app/(components)/buttons/send-link'
+import { useBusinessCanvasCtx } from '@/app/(contexts)/business-canvas-context'
+import { useUserInfoCtx } from '@/app/(contexts)/global-context'
+import { baseUrl } from '@/app/api/env'
 import styles from '@/styles/business-canvas.module.css'
+import { type ErrorReponse } from '@/types/api-responses/error-response'
 import { type IBusinessCanvas } from '@/types/business-canvas'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type ComponentName =
   | 'customerSegments'
@@ -41,8 +45,40 @@ const mapBusinessCanvas = (key: ComponentName): IMap => {
   }
 }
 
-const BusinessCanvas: React.FC = () => {
-  const [businessCanvas] = useState<IBusinessCanvas>(datas)
+interface Props {
+  params: {
+    id: string
+  }
+}
+
+const BusinessCanvas: React.FC<Props> = ({ params }: Props) => {
+  const [businessCanvas, setBusinessCanvas] = useState<IBusinessCanvas>(datas)
+  const { accessToken } = useUserInfoCtx()
+  const businessCanvasCtx = useBusinessCanvasCtx()
+
+  const getData = async (): Promise<void> => {
+    if (businessCanvasCtx?.businessCanvas) {
+      setBusinessCanvas(businessCanvasCtx.businessCanvas)
+      return
+    }
+    const response = await fetch(`${baseUrl}/business-canvas/${params.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': accessToken
+      }
+    })
+    const res: ErrorReponse | IBusinessCanvas = await response.json()
+    if ('error' in res) {
+      console.log('FAILS', res)
+      return
+    }
+    setBusinessCanvas(res)
+  }
+
+  useEffect(() => {
+    getData().catch(console.error)
+  }, [])
 
   const renderCards = (keys: ComponentName[], heightCard: boolean): React.JSX.Element[] => {
     return keys.map((key) => (
@@ -58,7 +94,7 @@ const BusinessCanvas: React.FC = () => {
 
   return (
       <div className={`${styles.container} flex justify-center flex-col items-center`}>
-        <h1>{businessCanvas.name}</h1>
+        <h1>{businessCanvas.name }</h1>
         <div className={styles.businessCanvasContainer}>
           <div className={`${styles.businessCanvasColumnsContainer}`}>
             <div className={`${styles.colum}`}>
@@ -83,7 +119,7 @@ const BusinessCanvas: React.FC = () => {
             </div>
           </div>
         </div>
-        <SendLink label='Criar Outro' url='/criar'/>
+        <SendLink label='Criar Outro' url='/'/>
       </div>
   )
 }
@@ -91,6 +127,7 @@ const BusinessCanvas: React.FC = () => {
 export default BusinessCanvas
 
 const datas = {
+  id: 'id',
   name: 'Empresa de Software',
   customerSegments: [
     'Pequenas empresas de varejo',
