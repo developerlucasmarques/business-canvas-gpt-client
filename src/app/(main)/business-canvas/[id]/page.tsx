@@ -51,7 +51,7 @@ interface Props {
   }
 }
 
-const BusinessCanvas: React.FC<Props> = ({ params }: Props) => {
+const BusinessCanvasById: React.FC<Props> = ({ params }: Props) => {
   const [businessCanvas, setBusinessCanvas] = useState<IBusinessCanvas>(datas)
   const { accessToken } = useUserInfoCtx()
   const businessCanvasCtx = useBusinessCanvasCtx()
@@ -124,7 +124,7 @@ const BusinessCanvas: React.FC<Props> = ({ params }: Props) => {
   )
 }
 
-export default BusinessCanvas
+export default BusinessCanvasById
 
 const datas = {
   id: 'id',

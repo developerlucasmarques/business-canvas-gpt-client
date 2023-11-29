@@ -1,27 +1,46 @@
 'use client'
 import { BcListCard } from '@/app/(components)/business-canvas/bc-list-card'
 import { SendLink } from '@/app/(components)/buttons/send-link'
+import { useUserInfoCtx } from '@/app/(contexts)/global-context'
+import { baseUrl } from '@/app/api/env'
 import styles from '@/styles/all-business-canvas.module.css'
-import { useState } from 'react'
+import { type BusinessCanvasSummary } from '@/types/api-responses/business-canvas-summary'
+import { type ErrorReponse } from '@/types/api-responses/error-response'
+import { useEffect, useState } from 'react'
 
-const MyBusinessCanvas: React.FC = () => {
-  const [canvas] = useState(canvasList)
+const BusinessCanvas: React.FC = () => {
+  const [businessCanvasList, setBusinessCanvasList] = useState<BusinessCanvasSummary[]>([])
+  const { accessToken } = useUserInfoCtx()
+
+  const getData = async (): Promise<void> => {
+    const response = await fetch(`${baseUrl}/business-canvas`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': accessToken
+      }
+    })
+    const res: ErrorReponse | BusinessCanvasSummary[] = await response.json()
+    if ('error' in res) {
+      console.log('FAILS', res)
+      return
+    }
+    setBusinessCanvasList(res)
+  }
+
+  useEffect(() => {
+    getData().catch(console.error)
+  }, [])
 
   return (
     <div className={styles.container}>
-      <h1 >Business Canvas Criado</h1>
-      {canvas.map((item, index) => (
+      <h1 >Business Canvas Criados</h1>
+      {businessCanvasList.map((item, index) => (
         <BcListCard key={index} id={item.id} name={item.name} createdAt={item.createdAt}/>
       ))}
-      <SendLink label='Criar Novo' url='/criar'/>
+      <SendLink label='Criar Novo' url='/'/>
     </div>
   )
 }
 
-export default MyBusinessCanvas
-
-const canvasList = [
-  { id: '1', name: 'Empresa de Software', createdAt: '01/02/2023' },
-  { id: '2', name: 'Empresa de Software', createdAt: '01/02/2023' },
-  { id: '3', name: 'Empresa de Software', createdAt: '01/02/2023' }
-]
+export default BusinessCanvas

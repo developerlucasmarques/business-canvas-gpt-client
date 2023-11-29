@@ -14,3 +14,10 @@
   line-height: 6rem;
   padding: 0 2rem;
 }
+
+.truncate {
+  margin-right: 2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -10,7 +10,7 @@ interface Props {
 export const BcListCard: React.FC<Props> = ({ id, name, createdAt }: Props) => {
   return (
     <Link href={`/business-canvas/${id}`} className={styles.listCard}>
-      <h3>{name}</h3>
+      <h3 className={styles.truncate}>{name}</h3>
       <p>{createdAt}</p>
     </Link>
   )
