@@ -47,3 +47,7 @@ body {
   max-width: 156rem;
   padding: 0 2rem;
 }
+
+h1 {
+  color: var(--color-title);
+}
