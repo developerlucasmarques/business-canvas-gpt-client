@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { Footer } from './(components)/footer'
 import { Header } from './(components)/header'
 import './globals.css'
-import { GlobalContextProvider } from './(contexts)/global-context'
+import { Providers } from './(contexts)/(providers)'
 
 const fontFamily = Poppins({
   subsets: ['latin'],
@@ -34,13 +34,13 @@ const RootLayout: React.FC<Props> = ({ children }: Props) => {
         <meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />
       </Head>
       <body>
-        <GlobalContextProvider>
+        <Providers>
           <Header/>
             <main className='mainContainer'>
               {children}
             </main>
           <Footer/>
-        </GlobalContextProvider>
+        </Providers>
       </body>
     </html>
   )
