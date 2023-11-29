@@ -3,6 +3,8 @@ import { Submit } from '@/app/(components)/buttons/submit'
 import { Input } from '@/app/(components)/form/input'
 import { Select } from '@/app/(components)/form/select'
 import { Textarea } from '@/app/(components)/form/textarea'
+import { LoadingOverlay } from '@/app/(components)/loading-overlay'
+import { useBusinessCanvasCtx } from '@/app/(contexts)/business-canvas-context'
 import { useUserInfoCtx } from '@/app/(contexts)/global-context'
 import { baseUrl } from '@/app/api/env'
 import styles from '@/styles/home.module.css'
@@ -10,12 +12,10 @@ import { type IAnswer } from '@/types/answer'
 import { type CreateBusinessCanvas } from '@/types/api-requests/create-business-canvas'
 import { type CreateBusinessCanvasReponse } from '@/types/api-responses/create-business-canvas-resposne'
 import { type ErrorReponse } from '@/types/api-responses/error-response'
-import { type HttpResponse } from '@/types/api-responses/http-response'
 import { type Question } from '@/types/question'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { LoadingOverlay } from '../loading-overlay'
 
 interface Props {
   questions: Question[]
@@ -26,6 +26,8 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
   const [loading, setLoading] = useState(false)
   const { control, handleSubmit } = useForm()
   const { accessToken } = useUserInfoCtx()
+  const { setAccessToken, setUserName } = useUserInfoCtx()
+  const businessCanvasCtx = useBusinessCanvasCtx()
   const router = useRouter()
 
   const formatAnswers = (answers: IAnswer): CreateBusinessCanvas[] => {
@@ -45,9 +47,8 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
   }
 
   const handleFormSubmit = async (answers: IAnswer): Promise<void> => {
-    setSubmitDisabled(true)
+    setSubmitDisabled(true); setLoading(true)
     const formattedAnswers = formatAnswers(answers)
-    setLoading(true)
     const response = await fetch(`${baseUrl}/business-canvas`, {
       method: 'POST',
       headers: {
@@ -56,14 +57,21 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
       },
       body: JSON.stringify(formattedAnswers)
     })
-    const res: HttpResponse<ErrorReponse> | HttpResponse<CreateBusinessCanvasReponse> = await response.json()
-    setLoading(false)
+    const res: ErrorReponse | CreateBusinessCanvasReponse = await response.json()
+    setSubmitDisabled(false); setLoading(false)
     if ('error' in res) {
       console.log('FAILS', res)
-    } else {
-      console.log('Success', res)
-      router.push('/business-canvas/123')
+      return
     }
+    let canvas = res
+    if (res.token && res.userName) {
+      setAccessToken(res.token)
+      setUserName(res.userName)
+      const { token, userName, ...datas } = res
+      canvas = datas
+    }
+    businessCanvasCtx?.setBusinessCanvas(canvas)
+    router.push(`/business-canvas/${res.id}`)
   }
 
   return (

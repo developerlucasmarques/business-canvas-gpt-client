@@ -1,4 +1,5 @@
 export interface IBusinessCanvas {
+  id: string
   name: string
   customerSegments: string[]
   valuePropositions: string[]

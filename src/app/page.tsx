@@ -1,5 +1,5 @@
 import { baseUrl } from '@/app/api/env'
-import { QuestionsForm } from './(components)/questions-form'
+import { QuestionsForm } from './(components)/form/questions-form'
 
 const Home: React.FC = async () => {
   const staticData = await fetch(`${baseUrl}/question`, { cache: 'force-cache' })
