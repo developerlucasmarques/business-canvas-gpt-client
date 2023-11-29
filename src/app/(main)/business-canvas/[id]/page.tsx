@@ -8,17 +8,7 @@ import styles from '@/styles/business-canvas.module.css'
 import { type ErrorReponse } from '@/types/api-responses/error-response'
 import { type IBusinessCanvas } from '@/types/business-canvas'
 import { useEffect, useState } from 'react'
-
-type ComponentName =
-  | 'customerSegments'
-  | 'valuePropositions'
-  | 'channels'
-  | 'customerRelationships'
-  | 'revenueStreams'
-  | 'keyResources'
-  | 'keyActivities'
-  | 'keyPartnerships'
-  | 'costStructure'
+import { type ComponentName } from '@/types/component-name'
 
 interface IMap {
   title: string
@@ -80,15 +70,15 @@ const BusinessCanvasById: React.FC<Props> = ({ params }: Props) => {
     getData().catch(console.error)
   }, [])
 
-  const renderCards = (keys: ComponentName[], heightCard: boolean): React.JSX.Element[] => {
+  const renderCards = (keys: ComponentName[], heightCard: boolean): React.JSX.Element[] | null => {
     return keys.map((key) => (
-      <BcCard
-        key={key}
-        title={mapBusinessCanvas(key).title}
-        contents={businessCanvas[key]}
-        heightCard={heightCard}
-        margin={mapBusinessCanvas(key).margin}
-      />
+        <BcCard
+          key={key}
+          title={mapBusinessCanvas(key).title}
+          contents={businessCanvas[key]}
+          heightCard={heightCard}
+          margin={mapBusinessCanvas(key).margin}
+        />
     ))
   }
 
