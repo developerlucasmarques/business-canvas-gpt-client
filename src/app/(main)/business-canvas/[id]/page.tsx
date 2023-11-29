@@ -1,6 +1,6 @@
 'use client'
 import { BcContainer } from '@/app/(components)/business-canvas/bc-container'
-import { NotFound } from '@/app/(components)/not-found'
+import { NotFound } from '@/app/(components)/errors/not-found'
 import { useBusinessCanvasCtx } from '@/app/(contexts)/business-canvas-context'
 import { useUserInfoCtx } from '@/app/(contexts)/global-context'
 import { type ErrorReponse } from '@/types/api-responses/error-response'

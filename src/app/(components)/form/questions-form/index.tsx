@@ -101,7 +101,7 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
               control={control}
               name={question.id}
               placeholder={question.content}
-              rules={{ minLength: { value: 10, message: 'message' }, required: true }}
+              rules={{ minLength: { value: 2, message: 'message' }, required: true }}
             />
           )
         }
