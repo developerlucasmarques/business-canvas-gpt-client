@@ -2,7 +2,7 @@
 import { BcListCard } from '@/app/(components)/business-canvas/bc-list-card'
 import { SendLink } from '@/app/(components)/buttons/send-link'
 import { useUserInfoCtx } from '@/app/(contexts)/global-context'
-import { baseUrl } from '@/app/api/env'
+import { apiBaseUrl } from '@/utils/env'
 import styles from '@/styles/all-business-canvas.module.css'
 import { type BusinessCanvasSummary } from '@/types/api-responses/business-canvas-summary'
 import { type ErrorReponse } from '@/types/api-responses/error-response'
@@ -13,7 +13,7 @@ const BusinessCanvas: React.FC = () => {
   const { accessToken } = useUserInfoCtx()
 
   const getData = async (): Promise<void> => {
-    const response = await fetch(`${baseUrl}/business-canvas`, {
+    const response = await fetch(`${apiBaseUrl}/business-canvas`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

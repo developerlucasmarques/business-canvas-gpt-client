@@ -5,7 +5,7 @@ import { CancelLink } from '@/app/(components)/buttons/cancel'
 import { Submit } from '@/app/(components)/buttons/submit'
 import { AccessInput } from '@/app/(components)/form/access-input'
 import { useUserInfoCtx } from '@/app/(contexts)/global-context'
-import { baseUrl } from '@/app/api/env'
+import { apiBaseUrl } from '@/utils/env'
 import { type LoginResponse } from '@/types/api-responses/login-response'
 import { type InputProps } from '@/types/input'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -54,7 +54,7 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
           <Form
             className={`${styles.form}`}
             control={control}
-            action={`${baseUrl}${formAction}`}
+            action={`${apiBaseUrl}${formAction}`}
             onSuccess={handleSuccess}
             method='post'
             encType='application/json'

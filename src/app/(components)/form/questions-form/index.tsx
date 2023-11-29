@@ -6,7 +6,7 @@ import { Textarea } from '@/app/(components)/form/textarea'
 import { LoadingOverlay } from '@/app/(components)/loading-overlay'
 import { useBusinessCanvasCtx } from '@/app/(contexts)/business-canvas-context'
 import { useUserInfoCtx } from '@/app/(contexts)/global-context'
-import { baseUrl } from '@/app/api/env'
+import { apiBaseUrl } from '@/utils/env'
 import styles from '@/styles/home.module.css'
 import { type IAnswer } from '@/types/answer'
 import { type CreateBusinessCanvas } from '@/types/api-requests/create-business-canvas'
@@ -49,7 +49,7 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
   const handleFormSubmit = async (answers: IAnswer): Promise<void> => {
     setSubmitDisabled(true); setLoading(true)
     const formattedAnswers = formatAnswers(answers)
-    const response = await fetch(`${baseUrl}/business-canvas`, {
+    const response = await fetch(`${apiBaseUrl}/business-canvas`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

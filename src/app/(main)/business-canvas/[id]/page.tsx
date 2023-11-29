@@ -3,7 +3,7 @@ import { BcCard } from '@/app/(components)/business-canvas/bc-card'
 import { SendLink } from '@/app/(components)/buttons/send-link'
 import { useBusinessCanvasCtx } from '@/app/(contexts)/business-canvas-context'
 import { useUserInfoCtx } from '@/app/(contexts)/global-context'
-import { baseUrl } from '@/app/api/env'
+import { apiBaseUrl } from '@/utils/env'
 import styles from '@/styles/business-canvas.module.css'
 import { type ErrorReponse } from '@/types/api-responses/error-response'
 import { type IBusinessCanvas } from '@/types/business-canvas'
@@ -61,7 +61,7 @@ const BusinessCanvasById: React.FC<Props> = ({ params }: Props) => {
       setBusinessCanvas(businessCanvasCtx.businessCanvas)
       return
     }
-    const response = await fetch(`${baseUrl}/business-canvas/${params.id}`, {
+    const response = await fetch(`${apiBaseUrl}/business-canvas/${params.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
