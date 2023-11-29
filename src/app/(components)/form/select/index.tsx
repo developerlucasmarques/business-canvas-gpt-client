@@ -29,7 +29,7 @@ export const Select: React.FC<SelectProps> = ({ control, label, name, options }:
             name={name}
             value={value}
           >
-            <option value="">Selecione</option>
+            <option>Selecione</option>
             {options.map(q => (
               <option key={q.id} value={q.id}>
                 {q.description}
