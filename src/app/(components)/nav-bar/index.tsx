@@ -14,11 +14,11 @@ export const NavBar: React.FC = () => {
     if ((userName && pathName === '/') || (userName && /^\/business-canvas\/.*$/.test(pathName))) {
       return [
         <MyBusinessCanvasButton url='/business-canvas' />,
-        <AccountButton label={userName} url='/' />
+        <AccountButton userName={userName} />
       ]
     }
     if (userName) {
-      return [<AccountButton label={userName} url='/' />]
+      return [<AccountButton userName={userName}/>]
     }
     const currentNav = NavsHeaders.find(item => item.routeName === pathName)
     return (

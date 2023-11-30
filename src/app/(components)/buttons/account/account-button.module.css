@@ -1,8 +1,42 @@
 .accountButton {
-  width: 16rem;
-  height: 4.8rem;
+  height: 3rem;
   color: var(--color-title);
   font-size: var(--font-size-medium);
   font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  margin-left: 1rem;
+  user-select: none;
 }
 
+.accountButton svg {
+  transform: rotate(180deg)
+}
+
+.exitContainer {
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: .8rem;
+  margin-top: 7rem;
+  height: 5rem;
+  width: 8rem;
+  background-color: rgba(205, 205, 205, 0.45);
+  color:var(--color-title);
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.none {
+  display: none;
+}
+
+.exitButtom {
+  height: 2rem;
+  cursor: pointer;
+  letter-spacing: 0.1rem;
+  transition: ease-out;
+}
+
+.exitButtom:hover {
+  border-bottom: 0.1rem solid var(--color-title);;
+}
