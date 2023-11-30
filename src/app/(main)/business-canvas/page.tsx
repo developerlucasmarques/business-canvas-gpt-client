@@ -22,10 +22,7 @@ const BusinessCanvas: React.FC = () => {
       }
     })
     const res: ErrorReponse | BusinessCanvasSummary[] = await response.json()
-    if ('error' in res) {
-      console.log('FAILS', res)
-      return
-    }
+    if ('error' in res) return
     setBusinessCanvasList(res)
   }
 

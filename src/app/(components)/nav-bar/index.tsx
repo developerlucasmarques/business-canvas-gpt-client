@@ -13,8 +13,8 @@ export const NavBar: React.FC = () => {
   const renderNavElements = (): ReactNode[] => {
     if ((userName && pathName === '/') || (userName && /^\/business-canvas\/.*$/.test(pathName))) {
       return [
-        <MyBusinessCanvasButton url='/business-canvas' />,
-        <AccountButton userName={userName} />
+        <MyBusinessCanvasButton key={1} url='/business-canvas' />,
+        <AccountButton key={2} userName={userName} />
       ]
     }
     if (userName) {
