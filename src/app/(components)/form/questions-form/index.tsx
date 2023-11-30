@@ -31,12 +31,17 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
   const businessCanvasCtx = useBusinessCanvasCtx()
   const router = useRouter()
 
-  const formatAnswers = (answers: IAnswer): CreateBusinessCanvas[] => (
-    questions.map((question) => (
-      question.alternatives
-        ? { questionId: question.id, alternativeId: answers[question.id] }
-        : { questionId: question.id, answer: answers[question.id] }
-    )))
+  const formatAnswers = (answers: IAnswer): CreateBusinessCanvas[] => {
+    const formatted: CreateBusinessCanvas[] = []
+    questions.forEach(question => {
+      if (question.alternatives) {
+        formatted.push({ questionId: question.id, alternativeId: answers[question.id] })
+      } else if (answers[question.id]?.length > 0) {
+        formatted.push({ questionId: question.id, answer: answers[question.id] })
+      }
+    })
+    return formatted
+  }
 
   const handleFormSubmit = async (answers: IAnswer): Promise<void> => {
     const question = questions.find(q => q.content.includes('localização'))
