@@ -19,6 +19,8 @@
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/unbound-method": "off",
+    "@typescript-eslint/no-dynamic-delete": "off",
+    "no-prototype-builtins": "off",
     "valid-typeof": "off"
   }
 }
