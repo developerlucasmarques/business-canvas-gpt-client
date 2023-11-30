@@ -24,7 +24,8 @@ export const Select: React.FC<SelectProps> = ({ control, label, name, options, o
     <Controller
       name={name}
       control={control}
-      render={({ field: { name, onBlur, onChange, value } }) => (
+      rules={{ required: 'Por favor, selecione uma opção' }}
+      render={({ field: { name, onBlur, onChange, value }, fieldState }) => (
         <div className={styles.input}>
           <p className={styles.label}>{label}</p>
           <select
@@ -35,13 +36,14 @@ export const Select: React.FC<SelectProps> = ({ control, label, name, options, o
             value={value}
             onClick={() => { handleClick(value) }}
           >
-            <option>Selecione</option>
+            <option value="">Selecione</option>
             {options.map(q => (
               <option key={q.id} value={q.id}>
                 {q.description}
               </option>
             ))}
           </select>
+          {fieldState.error && (<p className={styles.inputFails}>{fieldState.error?.message}</p>)}
         </div>
       )}
     />

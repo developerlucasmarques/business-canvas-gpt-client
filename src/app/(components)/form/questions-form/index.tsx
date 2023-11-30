@@ -39,6 +39,7 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
     )))
 
   const handleFormSubmit = async (answers: IAnswer): Promise<void> => {
+    console.log(answers)
     const question = questions.find(q => q.content.includes('localização'))
     if (!showInput && answers.hasOwnProperty(question?.id as string)) {
       delete answers[question?.id as string]
