@@ -13,7 +13,8 @@ export const Textarea: React.FC<TextareaProps> = ({ control, name, placeholder }
     <Controller
       control={control}
       name={name}
-      render={({ field: { name, onBlur, onChange, value } }) => (
+      rules={{ required: 'Campo obrigatório', minLength: { value: 20, message: 'Insira uma descrição maior' } }}
+      render={({ field: { name, onBlur, onChange, value }, fieldState }) => (
         <div className={styles.input}>
           <p className={styles.label}>{placeholder}</p>
           <textarea
@@ -25,6 +26,7 @@ export const Textarea: React.FC<TextareaProps> = ({ control, name, placeholder }
             placeholder={placeholder}
             rows={7}
           />
+          {fieldState.error && (<p className={styles.inputFails}>{fieldState.error?.message}</p>)}
         </div>
       )}
     />

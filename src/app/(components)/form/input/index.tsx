@@ -16,7 +16,8 @@ export const Input: React.FC<InputProps> = (props: InputProps) => {
     <Controller
       control={control}
       name={props.name}
-      render={({ field: { name, onBlur, onChange, value } }) => (
+      rules={{ required: 'Campo obrigatório', minLength: { value: 5, message: 'Insira uma resposta válida' } }}
+      render={({ field: { name, onBlur, onChange, value }, fieldState }) => (
         <div className={`${styles.input}`}>
           <label className={styles.label}>{placeholder}</label>
           <input
@@ -28,6 +29,7 @@ export const Input: React.FC<InputProps> = (props: InputProps) => {
             className={'w-full rounded-lg bg-blue-200 px-5 py-4 text-gray-800 transition-all mb-5'}
             placeholder={placeholder}
             />
+            {fieldState.error && (<p className={styles.inputFails}>{fieldState.error?.message}</p>)}
         </div>
       )}
     />
