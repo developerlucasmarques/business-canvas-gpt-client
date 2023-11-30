@@ -1,6 +1,6 @@
 'use client'
 import { type SelectHTMLAttributes } from 'react'
-import { type Control, Controller } from 'react-hook-form'
+import { Controller, type Control } from 'react-hook-form'
 import styles from '../form.module.css'
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
@@ -12,9 +12,14 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   }>
   name: string
   label: string
+  onOptionChange: (optionSelected: string | undefined) => void
 }
 
-export const Select: React.FC<SelectProps> = ({ control, label, name, options }: SelectProps) => {
+export const Select: React.FC<SelectProps> = ({ control, label, name, options, onOptionChange }: SelectProps) => {
+  const handleClick = (id: string): void => {
+    const option = options.find(o => o.id === id)
+    onOptionChange(option?.description.toLowerCase())
+  }
   return (
     <Controller
       name={name}
@@ -28,6 +33,7 @@ export const Select: React.FC<SelectProps> = ({ control, label, name, options }:
             onBlur={onBlur}
             name={name}
             value={value}
+            onClick={() => { handleClick(value) }}
           >
             <option>Selecione</option>
             {options.map(q => (
