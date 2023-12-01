@@ -37,7 +37,7 @@ export const AccountButton: React.FC<Props> = ({ userName }: Props) => {
   return (
   <div className={'flex justify-center items-end flex-col'}>
     <div className={`${styles.accountButton} flex justify-center items-center`} onClick={handleClick}>
-      <p>{userName}</p>
+      <p className={styles.truncate}>{userName}</p>
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12.75 10.5L9 6.75L5.25 10.5" stroke="#141774" strokeWidth="1.125" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>

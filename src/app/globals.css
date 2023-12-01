@@ -53,6 +53,9 @@ body {
   body {
     font-size: 1.5rem;
   }
+  .mainContainer {
+    padding: 0 1.4rem;
+  }
 }
 
 @media (max-width: 600px) {
@@ -62,6 +65,7 @@ body {
 
   .mainContainer {
     min-height: calc(100vh - 11rem);
+    padding: 0 1.2rem;
   }
 }
 

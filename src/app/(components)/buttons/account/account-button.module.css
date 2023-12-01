@@ -40,3 +40,52 @@
 .exitButtom:hover {
   border-bottom: 0.1rem solid var(--color-title);;
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 20ch
+}
+
+@media (max-width: 840px) {
+  .accountButton {
+    font-size: 1.7rem;
+  }
+  .exitContainer {
+    height: 4rem;
+    width: 7rem;
+    font-size: 1.4rem;
+  }
+  .truncate {
+    max-width: 15ch
+  }
+}
+
+@media (max-width: 740px) {
+  .accountButton {
+    font-size: 1.6rem;
+  }
+  .exitContainer {
+    height: 4rem;
+    width: 7rem;
+    font-size: 1.4rem;
+  }
+  .truncate {
+    max-width: 15ch
+  }
+}
+
+@media (max-width: 640px) {
+  .accountButton {
+    font-size: 1.4rem;
+  }
+  .exitContainer {
+    height: 3.6rem;
+    width: 6rem;
+    font-size: 1.3rem;
+  }
+  .truncate {
+    max-width: 12ch
+  }
+}
