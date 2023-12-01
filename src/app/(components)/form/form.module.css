@@ -16,7 +16,7 @@
 
 @media (max-width: 800px) {
   .input {
-    width: 65rem;
+    width: calc(100vw - 8rem);
   }
 }
 
@@ -31,5 +31,3 @@
     width: calc(100vw - 2.4rem);
   }
 }
-
-

@@ -14,3 +14,9 @@
 .buttons {
   height: 100%;
 }
+
+@media (max-width: 600px) {
+  .header {
+    height: 6rem;
+  }
+}

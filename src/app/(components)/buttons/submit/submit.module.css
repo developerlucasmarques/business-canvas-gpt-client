@@ -9,3 +9,17 @@
   margin-top: 2rem;
   cursor: pointer;
 }
+
+@media (max-width: 640px) {
+  .submit {
+    height: 4.8rem;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .submit {
+    height: 4.6rem;
+    font-size: 1.3rem;
+  }
+}

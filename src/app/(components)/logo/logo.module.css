@@ -1,6 +1,5 @@
 .logo {
   width: 19.1rem;
-  height: 3.6rem;
   display: block;
 }
 
@@ -9,3 +8,26 @@
   width: 100%;
 }
 
+@media (max-width: 800px) {
+  .logo {
+    width: 16rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .logo {
+    width: 14rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .logo {
+    width: 12rem;
+  }
+}
+
+@media (max-width: 440px) {
+  .logo {
+    width: 10rem;
+  }
+}

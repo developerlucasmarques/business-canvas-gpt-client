@@ -8,3 +8,34 @@
   border-radius: 3.6rem;
 }
 
+
+@media (max-width: 740px) {
+  .signUpButton {
+    width: 16rem;
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .signUpButton {
+    width: 14rem;
+    font-size: 1.4rem;
+    height: 4rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .signUpButton {
+    width: 12rem;
+    font-size: 1.2rem;
+    height: 3.6rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .signUpButton {
+    width: 10rem;
+    font-size: 1.1rem;
+    height: 3.4rem;
+  }
+}

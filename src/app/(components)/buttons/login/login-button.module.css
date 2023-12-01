@@ -6,3 +6,35 @@
   font-weight: var(--font-weight-medium);
 }
 
+@media (max-width: 740px) {
+  .loginButton {
+    width: 14rem;
+    font-size: 1.6rem;
+  }
+
+  .loginButton svg {
+    height: 2.2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .loginButton {
+    width: 12rem;
+    font-size: 1.4rem;
+  }
+
+  .loginButton svg {
+    height: 2rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .loginButton {
+    width: 10rem;
+    font-size: 1.2rem;
+  }
+
+  .loginButton svg {
+    height: 1.8rem;
+  }
+}

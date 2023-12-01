@@ -38,12 +38,13 @@ body {
 }
 
 .mainContainer {
+  overflow-x: hidden;
   margin: auto;
   min-height: calc(100vh - 14rem);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   max-width: 156rem;
   padding: 0 2rem;
 }
@@ -58,10 +59,23 @@ body {
   body {
     font-size: 1.4rem;
   }
+
+  .mainContainer {
+    min-height: calc(100vh - 11rem);
+  }
 }
 
 @media (max-width: 500px) {
   body {
     font-size: 1.3rem;
+  }
+  .mainContainer {
+    min-height: calc(100vh - 10rem);
+  }
+}
+
+@media (max-width: 400px) {
+  body {
+    font-size: 1.2rem;
   }
 }

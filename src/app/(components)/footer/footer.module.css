@@ -17,3 +17,23 @@
 .buttons {
   height: 100%;
 }
+
+@media (max-width: 600px) {
+  .footer {
+    height: 5rem;
+  }
+
+  .content {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .footer {
+    height: 4rem;
+  }
+
+  .content {
+    font-size: 1.2rem;
+  }
+}
