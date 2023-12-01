@@ -71,6 +71,7 @@ body {
   }
   .mainContainer {
     min-height: calc(100vh - 10rem);
+    padding: 0 1rem;
   }
 }
 

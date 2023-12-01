@@ -1,5 +1,30 @@
 .button {
-  margin-left: 3.2rem;
+  margin-left: 1.6%;
   width: 3rem;
   cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .button {
+    margin-left: 1%;
+  }
+  .button svg {
+    height: 4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .button {
+    margin-left: .9%;
+  }
+
+  .button svg {
+    height: 3.4rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .button {
+    display: none;
+  }
 }

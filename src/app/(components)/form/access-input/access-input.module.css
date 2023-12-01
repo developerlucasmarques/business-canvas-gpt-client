@@ -4,7 +4,7 @@
 
 .inputContainerInfo {
   color: var(--color-button-background);
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 1.2rem;
 }
@@ -23,4 +23,64 @@
 .inputFails {
   color: red;
   font-size: 1.6rem;
+}
+
+@media (max-width: 800px) {
+  .inputContainerInfo {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  .inputFails {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .inputContainer {
+    margin: 1.6rem 0;
+  }
+  .inputContainerInfo {
+    font-size: 1.5rem;
+    margin-bottom: .8rem;
+  }
+  .inputFails {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .inputContainerInfo {
+    margin-bottom: .7rem;
+  }
+  .inputFails {
+    font-size: 1.2rem;
+  }
+  .inputContainer {
+    margin: 1.5rem 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .inputContainerInfo {
+    font-size: 1.4rem;
+    margin-bottom: .5rem;
+  }
+  .inputFails {
+    font-size: 1.14rem;
+  }
+  .inputContainer {
+    margin: 1.4rem 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .inputContainerInfo {
+    font-size: 1.3rem;
+  }
+  .inputFails {
+    font-size: 1.1rem;
+  }
+  .inputContainer {
+    margin: 1.2rem 0;
+  }
 }
