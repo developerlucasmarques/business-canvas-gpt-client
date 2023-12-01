@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Controller } from 'react-hook-form'
 import { ZodError } from 'zod'
 import styles from './access-input.module.css'
+import { capitalized } from '@/utils/first-letter-capitalized'
 
 export const AccessInput: React.FC<InputProps> = (props: InputProps) => {
   const { control, placeholder, validationSchema, label, type } = props
@@ -31,7 +32,10 @@ export const AccessInput: React.FC<InputProps> = (props: InputProps) => {
             type={type ?? 'text'}
             value={value}
             name={name}
-            onChange={(event) => { onChange(event); handleValidation(event.target.value) }}
+            onChange={(e) => {
+              name === 'name' ? onChange(capitalized(e)) : onChange(e)
+              handleValidation(e.target.value)
+            }}
             onBlur={() => { onBlur(); handleValidation(value) }}
             placeholder={placeholder}
           />

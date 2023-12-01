@@ -1,6 +1,7 @@
 import type { Control, FieldValues } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 import styles from '../form.module.css'
+import { capitalized } from '@/utils/first-letter-capitalized'
 
 interface InputElementAttributes extends React.InputHTMLAttributes<HTMLInputElement> {}
 
@@ -24,7 +25,7 @@ export const Input: React.FC<InputProps> = (props: InputProps) => {
             type="text"
             value={value}
             name={name}
-            onChange={onChange}
+            onChange={(e) => { onChange(capitalized(e)) }}
             onBlur={onBlur}
             className={'w-full rounded-lg bg-blue-200 px-5 py-4 text-gray-800 transition-all mb-5'}
             placeholder={placeholder}

@@ -1,6 +1,7 @@
 import type { TextareaHTMLAttributes } from 'react'
 import { Controller, type Control } from 'react-hook-form'
 import styles from '../form.module.css'
+import { capitalized } from '@/utils/first-letter-capitalized'
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   control: Control
@@ -21,7 +22,7 @@ export const Textarea: React.FC<TextareaProps> = ({ control, name, placeholder }
             value={value}
             name={name}
             onBlur={onBlur}
-            onChange={onChange}
+            onChange={(e) => { onChange(capitalized(e)) }}
             className={'w-full rounded-lg bg-blue-200 px-5 py-4 text-gray-800 transition-all mb-5'}
             placeholder={placeholder}
             rows={7}
