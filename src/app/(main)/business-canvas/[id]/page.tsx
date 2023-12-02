@@ -33,7 +33,6 @@ const BusinessCanvasById: React.FC<Props> = ({ params }: Props) => {
     })
     const res: ErrorReponse | IBusinessCanvas = await response.json()
     if ('error' in res) {
-      console.log('FAILS', res)
       return
     }
     setBusinessCanvas(res)
