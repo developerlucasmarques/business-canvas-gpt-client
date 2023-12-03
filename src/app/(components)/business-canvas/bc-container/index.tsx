@@ -1,9 +1,9 @@
 import { type IBusinessCanvas } from '@/types/business-canvas'
-import { SendLink } from '../../buttons/send-link'
 import { type ComponentName } from '@/types/component-name'
+import { type RefObject, useEffect, useRef, useState } from 'react'
+import { SendLink } from '../../buttons/send-link'
 import { BcCard } from '../bc-card'
 import styles from './bc-container.module.css'
-import { useEffect, useRef, useState } from 'react'
 
 interface Props {
   businessCanvas: IBusinessCanvas
@@ -28,11 +28,12 @@ const componentMapping: Record<string, IMap> = {
 
 export const BcContainer: React.FC<Props> = ({ businessCanvas }: Props) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-  const [columHeight, setColumHeight] = useState({ height: '' })
-  const [lineHeight, setLineHeight] = useState({ height: '' })
+  const [columHeight, setColumHeight] = useState(0)
+  const [lineHeight, setLineHeight] = useState(0)
+  const [cardHeight, setCardHeight] = useState(0)
+  const [keyResourcesHeight, setKeyResourcesHeight] = useState(0)
+  const [keyActivitiesHeight, setKeyActivitiesHeight] = useState(0)
   const colunsRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)]
-  const keys = Object.keys(businessCanvas) as ComponentName[]
-  const cardRefs = keys.map(() => useRef<HTMLDivElement>(null))
   const isWide = windowWidth >= 1200
 
   useEffect(() => {
@@ -41,36 +42,49 @@ export const BcContainer: React.FC<Props> = ({ businessCanvas }: Props) => {
     }
     window.addEventListener('resize', handleResize)
     if (colunsRefs.every(ref => ref.current) && isWide) {
-      const heights = colunsRefs.map((ref) => ref.current?.offsetHeight ?? 0)
-      const maxColumHeight = Math.max(...heights)
-      setColumHeight({ height: `${maxColumHeight / 10}rem` })
-      const cardHeights = cardRefs.map((ref) => ref.current?.clientHeight ?? 0)
-      const maxCardHeight = Math.max(...cardHeights)
-      setLineHeight({ height: `${maxCardHeight / 10}rem` })
+      const columHeights = colunsRefs.map((ref) => ref.current?.offsetHeight ?? 0)
+      const maxColumHeight = Math.max(...columHeights)
+      setColumHeight(maxColumHeight / 10)
     }
     return () => {
       window.removeEventListener('resize', handleResize)
     }
   }, [
-    windowWidth, isWide,
-    ...colunsRefs.map((ref) => ref.current),
-    ...cardRefs.map((ref) => ref.current)
+    isWide,
+    ...colunsRefs.map((ref) => ref.current)
   ])
 
   const renderColumn = (keys: ComponentName[], refIndex?: number): React.ReactNode => (
-    <div className={styles.colum} style={columHeight} ref={refIndex !== undefined ? colunsRefs[refIndex] : undefined}>
+    <div className={styles.colum} style={ columHeight ? { height: `${columHeight}rem` } : undefined} ref={refIndex !== undefined ? colunsRefs[refIndex] : undefined}>
       {renderCards(keys)}
     </div>
   )
 
+  const handleCardRefChange = (ref: RefObject<HTMLDivElement>, key: string): void => {
+    if ((key === 'revenueStreams' || key === 'costStructure') && cardHeight === 0) {
+      setCardHeight(ref.current?.offsetHeight ?? 0)
+      setLineHeight((lineH) => Math.max(lineH, ref.current?.offsetHeight ?? 0) / 10)
+    }
+    if (key === 'keyResources' || key === 'keyActivities') {
+      const height = ref.current?.offsetHeight ?? 0
+      if (key === 'keyResources') setKeyResourcesHeight(height)
+      if (key === 'keyActivities') setKeyActivitiesHeight(height)
+
+      const totalHeight = (keyResourcesHeight + keyActivitiesHeight) / 10
+      if (totalHeight > columHeight) {
+        setColumHeight(totalHeight + 1.2)
+      }
+    }
+  }
+
   const renderCards = (keys: ComponentName[]): React.ReactNode => (
-    keys.map((key, index) => (
+    keys.map((key) => (
       <BcCard
         key={key}
         title={componentMapping[key].title}
         contents={businessCanvas[key]}
         margin={componentMapping[key].margin}
-        cardRef={cardRefs[index]}
+        onCardRefChange={ref => { handleCardRefChange(ref, key) }}
       />
     ))
   )
@@ -87,9 +101,9 @@ export const BcContainer: React.FC<Props> = ({ businessCanvas }: Props) => {
           {renderColumn(['customerSegments'])}
         </div>
         <div>
-          {!isWide && <div className={styles.line}>{renderCards(['keyActivities', 'keyResources'])}</div>}
-          {!isWide && <div className={styles.line}>{renderCards(['customerRelationships', 'channels'])}</div>}
-          <div className={styles.line} style={lineHeight}>{renderCards(['revenueStreams', 'costStructure'])}</div>
+          {!isWide && <div className={styles.line} style={lineHeight ? { height: `${lineHeight}rem` } : undefined}>{renderCards(['keyActivities', 'keyResources'])}</div>}
+          {!isWide && <div className={styles.line} style={lineHeight ? { height: `${lineHeight}rem` } : undefined}>{renderCards(['customerRelationships', 'channels'])}</div>}
+          <div className={styles.line} style={lineHeight ? { height: `${lineHeight}rem` } : undefined}>{renderCards(['revenueStreams', 'costStructure'])}</div>
         </div>
       </div>
       <SendLink label='Criar Outro' url='/'/>

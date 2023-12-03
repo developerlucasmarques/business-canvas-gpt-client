@@ -1,13 +1,29 @@
+import { type RefObject, useEffect, useRef, useState } from 'react'
 import styles from './bc-card.module.css'
 
 interface Props {
   title: string
   contents: string[]
   margin?: boolean
-  cardRef: React.RefObject<HTMLDivElement>
+  onCardRefChange: (ref: RefObject<HTMLDivElement>) => void
 }
 
-export const BcCard: React.FC<Props> = ({ title, contents, margin, cardRef }: Props) => {
+export const BcCard: React.FC<Props> = ({ title, contents, margin, onCardRefChange }: Props) => {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const handleResize = (): void => {
+      setWindowWidth(window.innerWidth)
+    }
+    window.addEventListener('resize', handleResize)
+    onCardRefChange(cardRef)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [windowWidth, cardRef.current])
+
   return (
   <div
     className={`${styles.card}`}
