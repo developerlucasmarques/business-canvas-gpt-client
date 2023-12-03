@@ -33,8 +33,10 @@ export const BcContainer: React.FC<Props> = ({ businessCanvas }: Props) => {
   const [cardHeight, setCardHeight] = useState(0)
   const [keyResourcesHeight, setKeyResourcesHeight] = useState(0)
   const [keyActivitiesHeight, setKeyActivitiesHeight] = useState(0)
+  const [channelsHeight, setChannelsHeight] = useState(0)
+  const [customerRelationshipsHeight, setCustomerRelationshipsHeightHeight] = useState(0)
   const colunsRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)]
-  const isWide = windowWidth >= 1200
+  const isWide = windowWidth >= 100
 
   useEffect(() => {
     const handleResize = (): void => {
@@ -60,17 +62,21 @@ export const BcContainer: React.FC<Props> = ({ businessCanvas }: Props) => {
     </div>
   )
 
-  const handleCardRefChange = (ref: RefObject<HTMLDivElement>, key: string): void => {
+  const handleCardRefChange = (ref: RefObject<HTMLDivElement>, key: ComponentName): void => {
     if ((key === 'revenueStreams' || key === 'costStructure') && cardHeight === 0) {
       setCardHeight(ref.current?.offsetHeight ?? 0)
       setLineHeight((lineH) => Math.max(lineH, ref.current?.offsetHeight ?? 0) / 10)
     }
-    if (key === 'keyResources' || key === 'keyActivities') {
+    if (key === 'keyResources' || key === 'keyActivities' || key === 'channels' || key === 'customerRelationships') {
       const height = ref.current?.offsetHeight ?? 0
       if (key === 'keyResources') setKeyResourcesHeight(height)
       if (key === 'keyActivities') setKeyActivitiesHeight(height)
+      if (key === 'channels') setChannelsHeight(height)
+      if (key === 'customerRelationships') setCustomerRelationshipsHeightHeight(height)
 
-      const totalHeight = (keyResourcesHeight + keyActivitiesHeight) / 10
+      const colum1Height = (keyResourcesHeight + keyActivitiesHeight) / 10
+      const colum2Height = (channelsHeight + customerRelationshipsHeight) / 10
+      const totalHeight = colum1Height > colum2Height ? colum1Height : colum2Height
       if (totalHeight > columHeight) {
         setColumHeight(totalHeight + 1.2)
       }
