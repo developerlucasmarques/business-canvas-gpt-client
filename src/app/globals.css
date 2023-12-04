@@ -15,7 +15,7 @@
   --color-placeholder: #949EA5;
   --color-header-background: #E8F6FF;
   --color-footer-background: #E8F6FF;
-  --color-business-canvas-card-background: rgb(229, 245, 255, 50%);
+  --color-business-canvas-card-background: rgb(237, 248, 255);
   --font-size-medium: 1.8rem;
   --font-weight-medium:  600;
 }
@@ -27,6 +27,7 @@ html {
 
 body {
   font-size: 1.6rem;
+  overflow-x: hidden;
   color: var(--color-body-text);
   height: 100%;
 }

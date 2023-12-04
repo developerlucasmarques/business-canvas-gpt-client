@@ -4,6 +4,7 @@
 }
 
 .container h1 {
+  text-align: center;
   margin: 2rem 0 8rem 0;
   font-size: 2.8rem;
   font-weight: 600;
@@ -20,16 +21,99 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1.4rem;
+  margin-bottom: .8rem;
 }
 
 .colum {
   display: flex;
   width: 100%;
+  margin-right: 1.2rem;
   flex-direction: column;
 }
 
-.line {
-  margin-bottom: 1.2rem;
+.colum:last-of-type {
+  margin-right: 0;
+}
+
+.businessCanvasLinesContainer {
+  width: 100%;
   display: flex;
 }
+
+.line {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .8rem;
+}
+
+.line > *:first-child {
+  margin-right: .6rem;
+}
+
+.line > *:last-child {
+  margin-left: .6rem;
+}
+
+@media (max-width: 1000px) {
+  .container h1 {
+    font-size: 2.6rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .container h1 {
+    font-size: 2.4rem;
+    margin: 1.8rem 0 6rem 0;
+  }
+  .businessCanvasContainer {
+    margin-bottom: 3rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .container h1 {
+    font-size: 2.2rem;
+    margin: 1.6rem 0 4rem 0;
+  }
+  .businessCanvasContainer {
+    margin-bottom: 2.6rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .line > *:first-child {
+    margin-right:0;
+  }
+
+  .line > *:last-child {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .container h1 {
+    font-size: 2rem;
+    margin: 1.4rem 0 3rem 0;
+  }
+  .businessCanvasContainer {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .container h1 {
+    font-size: 1.9rem;
+  }
+  .businessCanvasContainer {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .container h1 {
+    font-size: 1.8rem;
+  }
+}
+

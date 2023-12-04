@@ -1,11 +1,10 @@
 .card {
-  width: 97%;
+  width: 100%;
   height: 100%;
   background-color: var(--color-business-canvas-card-background);
   border-radius: 0.8rem;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.12);
   padding: 1.2rem 1.2rem 1.8rem 1.2rem;
-  margin: 0 .6rem .6rem 0;
 }
 
 .card h2 {
@@ -21,4 +20,49 @@
   font-weight: 500;
   color: var(--color-body-text);
   margin-bottom: 1.2rem;
+}
+
+@media (max-width: 800px) {
+  .card h2 {
+    font-size: 1.7rem;
+  }
+  .card p {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .card h2 {
+    font-size: 1.65rem;
+  }
+  .card p {
+    font-size: 1.45rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .card h2 {
+    font-size: 1.6rem;
+  }
+  .card p {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .card h2 {
+    font-size: 1.55rem;
+  }
+  .card p {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .card h2 {
+    font-size: 1.5rem;
+  }
+  .card p {
+    font-size: 1.3rem;
+  }
 }

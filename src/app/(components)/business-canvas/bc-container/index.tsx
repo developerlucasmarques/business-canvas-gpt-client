@@ -1,6 +1,6 @@
 import { type IBusinessCanvas } from '@/types/business-canvas'
 import { type ComponentName } from '@/types/component-name'
-import { useEffect, useState, type RefObject } from 'react'
+import { useEffect, useState } from 'react'
 import { SendLink } from '../../buttons/send-link'
 import { BcCard } from '../bc-card'
 import styles from './bc-container.module.css'
@@ -14,62 +14,69 @@ interface IMap {
   margin?: boolean
 }
 
-const componentMapping: Record<string, IMap> = {
-  customerSegments: { title: 'Segmentos dos Clientes' },
-  valuePropositions: { title: 'Proposta de Valor' },
-  channels: { title: 'Canais' },
-  customerRelationships: { title: 'Relacionamento com Clientes', margin: true },
-  revenueStreams: { title: 'Fontes de Receita' },
-  keyResources: { title: 'Principais Recursos' },
-  keyActivities: { title: 'Principais Atividades', margin: true },
-  keyPartnerships: { title: 'Parcerias-Chaves' },
-  costStructure: { title: 'Estrutura de custos' }
-}
-
-type ICardHeight = Record<ComponentName, number>
-
 export const BcContainer: React.FC<Props> = ({ businessCanvas }: Props) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-  const [columHeight, setColumHeight] = useState(0)
-  const [lineHeight] = useState(0)
-  const [cardHeight, setCardHeight] = useState<ICardHeight>({} as unknown as ICardHeight)
-  const isWide = windowWidth >= 100
+  const [componentMapping, setComponentMapping] = useState<Record<string, IMap>>({
+    customerSegments: { title: 'Segmentos dos Clientes' },
+    valuePropositions: { title: 'Proposta de Valor' },
+    channels: { title: 'Canais' },
+    customerRelationships: { title: 'Relacionamento com Clientes', margin: true },
+    revenueStreams: { title: 'Fontes de Receita' },
+    keyResources: { title: 'Principais Recursos' },
+    keyActivities: { title: 'Principais Atividades', margin: true },
+    keyPartnerships: { title: 'Parcerias-Chaves' },
+    costStructure: { title: 'Estrutura de custos' }
+  })
+  const is1200 = windowWidth >= 1200
+  const is1000 = windowWidth >= 1000
+  const is680 = windowWidth >= 680
 
   useEffect(() => {
     const handleResize = (): void => {
       setWindowWidth(window.innerWidth)
     }
     window.addEventListener('resize', handleResize)
+    if (!is1200) {
+      setComponentMapping((prev) => ({
+        ...prev,
+        customerRelationships: {
+          ...prev.customerRelationships,
+          margin: false
+        },
+        keyActivities: {
+          ...prev.keyActivities,
+          margin: false
+        }
+      }))
+    } else {
+      setComponentMapping((prev) => ({
+        ...prev,
+        customerRelationships: {
+          ...prev.customerRelationships,
+          margin: true
+        },
+        keyActivities: {
+          ...prev.keyActivities,
+          margin: true
+        }
+      }))
+    }
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [isWide, windowWidth, cardHeight])
+  }, [is1200])
 
   const renderColumn = (keys: ComponentName[]): React.ReactNode => (
-    <div className={styles.colum} style={ columHeight ? { height: `${columHeight}rem` } : undefined}>
+    <div className={styles.colum} >
       {renderCards(keys)}
     </div>
   )
 
-  const handleCardHeigh = (key: ComponentName, offsetHeight: number): void => {
-    const copy = { ...cardHeight }
-    copy[key] = offsetHeight
-    setCardHeight(copy)
-    const colum1Height = ((cardHeight.keyResources + cardHeight.keyActivities) / 10) + 1.2
-    const colum2Height = ((cardHeight.channels + cardHeight.customerRelationships)) / 10 + 1.2
-    const largestColumn = Math.max(colum1Height, colum2Height)
-    const largestCard = Math.max(cardHeight.keyPartnerships, cardHeight.valuePropositions, cardHeight.customerSegments) / 10
-    const maxHeight = Math.max(largestColumn, largestCard)
-    if (maxHeight > columHeight) {
-      setColumHeight(maxHeight)
-    }
-  }
-
-  const handleCardRefChange = (ref: RefObject<HTMLDivElement>, key: ComponentName): void => {
-    if (key !== 'revenueStreams' && key !== 'costStructure') {
-      handleCardHeigh(key, ref.current?.offsetHeight ?? 0)
-    }
-  }
+  const renderLine = (keys: ComponentName[]): React.ReactNode => (
+    <div className={styles.line} >
+      {renderCards(keys)}
+    </div>
+  )
 
   const renderCards = (keys: ComponentName[]): React.ReactNode => (
     keys.map((key) => (
@@ -78,7 +85,6 @@ export const BcContainer: React.FC<Props> = ({ businessCanvas }: Props) => {
         title={componentMapping[key].title}
         contents={businessCanvas[key]}
         margin={componentMapping[key].margin}
-        onCardRefChange={ref => { handleCardRefChange(ref, key) }}
       />
     ))
   )
@@ -88,16 +94,47 @@ export const BcContainer: React.FC<Props> = ({ businessCanvas }: Props) => {
       <h1>{businessCanvas.name}</h1>
       <div className={styles.businessCanvasContainer}>
         <div className={styles.businessCanvasColumnsContainer}>
-          {renderColumn(['keyPartnerships'])}
-          {isWide && renderColumn(['keyActivities', 'keyResources'])}
+          {is1000 && renderColumn(['keyPartnerships'])}
+          {is1200 && renderColumn(['keyActivities', 'keyResources'])}
           {renderColumn(['valuePropositions'])}
-          {isWide && renderColumn(['customerRelationships', 'channels'])}
-          {renderColumn(['customerSegments'])}
+          {is1200 && renderColumn(['customerRelationships', 'channels'])}
+          {is1000 && renderColumn(['customerSegments'])}
         </div>
-        <div>
-          {!isWide && <div className={styles.line} style={lineHeight ? { height: `${lineHeight}rem` } : undefined}>{renderCards(['keyActivities', 'keyResources'])}</div>}
-          {!isWide && <div className={styles.line} style={lineHeight ? { height: `${lineHeight}rem` } : undefined}>{renderCards(['customerRelationships', 'channels'])}</div>}
-          <div className={styles.line} style={lineHeight ? { height: `${lineHeight}rem` } : undefined}>{renderCards(['revenueStreams', 'costStructure'])}</div>
+        <div className={styles.businessCanvasLinesContainer}>
+          {!is680 && renderLine(['keyPartnerships'])}
+        </div>
+        <div className={styles.businessCanvasLinesContainer}>
+          {!is680 && renderLine(['customerSegments'])}
+        </div>
+        <div className={styles.businessCanvasLinesContainer}>
+          {!is680 && renderLine(['keyActivities'])}
+        </div>
+        <div className={styles.businessCanvasLinesContainer}>
+          {!is680 && renderLine(['keyResources'])}
+        </div>
+        <div className={styles.businessCanvasLinesContainer}>
+          {!is680 && renderLine(['customerRelationships'])}
+        </div>
+        <div className={styles.businessCanvasLinesContainer}>
+          {!is680 && renderLine(['channels'])}
+        </div>
+        <div className={styles.businessCanvasLinesContainer}>
+          {!is680 && renderLine(['costStructure'])}
+        </div>
+        <div className={styles.businessCanvasLinesContainer}>
+          {!is680 && renderLine(['revenueStreams'])}
+        </div>
+        <div className={styles.businessCanvasLinesContainer}>
+          {!is1000 && is680 && renderLine(['keyPartnerships', 'customerSegments'])}
+        </div>
+        <div className={styles.businessCanvasLinesContainer}>
+          {!is1200 && is680 && renderLine(['keyActivities', 'keyResources'])}
+        </div>
+        <div className={styles.businessCanvasLinesContainer}>
+          {!is1200 && is680 && renderLine(['customerRelationships', 'channels'])}
+        </div>
+        <div className={styles.businessCanvasLinesContainer}>
+          {is680 && renderLine(['revenueStreams', 'costStructure'])}
         </div>
       </div>
       <SendLink label='Criar Outro' url='/'/>
