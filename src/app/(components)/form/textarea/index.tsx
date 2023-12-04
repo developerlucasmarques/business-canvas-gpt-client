@@ -26,6 +26,7 @@ export const Textarea: React.FC<TextareaProps> = ({ control, name, placeholder }
             className={'w-full rounded-lg bg-blue-200 px-5 py-4 text-gray-800 transition-all mb-5'}
             placeholder={placeholder}
             rows={7}
+            style={{ resize: 'none' }}
           />
           {fieldState.error && (<p className={styles.inputFails}>{fieldState.error.message}</p>)}
         </div>

@@ -18,16 +18,25 @@
   .input {
     width: calc(100vw - 8rem);
   }
+  .label {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 700px) {
   .input {
     width: 60rem;
   }
+  .label {
+    font-size: 1.45rem;
+  }
 }
 
 @media (max-width: 640px) {
   .input {
     width: calc(100vw - 2.4rem);
+  }
+  .label {
+    font-size: 1.4rem;
   }
 }
