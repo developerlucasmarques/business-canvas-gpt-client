@@ -1,5 +1,5 @@
 'use client'
-import { AccessFormCard } from '@/app/(components)/access/access-form-card'
+import { AccessFormCard } from '@/app/(components)/form/access/access-form-card'
 import { z } from 'zod'
 
 const required_error = 'Campo obrigatório'
