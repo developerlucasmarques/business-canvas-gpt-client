@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import React, { type ReactNode } from 'react'
 import { AccountButton } from '../buttons/account'
 import { MyBusinessCanvasButton } from '../buttons/my-business-canvas'
+import styles from './nav-bar.module.css'
 
 export const NavBar: React.FC = () => {
   const { userName } = useUserInfoCtx()
@@ -27,5 +28,5 @@ export const NavBar: React.FC = () => {
       )) ?? []
     )
   }
-  return <ul className='flex items-center'>{renderNavElements()}</ul>
+  return <ul className={styles.navBar}>{renderNavElements()}</ul>
 }

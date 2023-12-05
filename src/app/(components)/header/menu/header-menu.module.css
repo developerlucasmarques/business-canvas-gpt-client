@@ -1,0 +1,40 @@
+/* DropdownMenu.css */
+.dropdownContainer {
+  position: relative;
+}
+
+.dropdownOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2); /* Cor escura com transparência */
+  z-index: 1; /* Garante que o overlay está acima dos outros elementos */
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dropdownContent {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8rem;
+  width: 25rem;
+  height: 15rem;
+  background: var(--color-header-background);
+  padding: 16px;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dropdownContent ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdownContent li {
+  padding: 8px;
+  cursor: pointer;
+}
+
