@@ -17,10 +17,10 @@
   align-items: center;
   position: absolute;
   border-radius: .8rem;
-  margin-top: 7rem;
+  margin-top: 10rem;
   height: 5rem;
   width: 8rem;
-  background-color: rgba(205, 205, 205, 0.45);
+  background-color: rgba(209, 233, 250, 0.9);
   color:var(--color-title);
   font-size: 1.6rem;
   font-weight: 500;

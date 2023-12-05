@@ -12,6 +12,7 @@ export const AccountButton: React.FC<Props> = ({ userName }: Props) => {
   const { unsetAccessToken, unsetUserName } = useUserInfoCtx()
   const [buttonDisplay, setButtonDisplay] = useState(false)
   const exitContainerRef = useRef<HTMLDivElement>(null)
+  const accountButtonRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
 
   const handleClick = (): void => {
@@ -24,7 +25,10 @@ export const AccountButton: React.FC<Props> = ({ userName }: Props) => {
   }
 
   const handleOutsideClick = (event: MouseEvent): void => {
-    if (exitContainerRef.current && !exitContainerRef.current.contains(event.target as Node)) {
+    if (
+      exitContainerRef.current && !exitContainerRef.current.contains(event.target as Node) &&
+      accountButtonRef.current && !accountButtonRef.current.contains(event.target as Node)
+    ) {
       setButtonDisplay(false)
     }
   }
@@ -35,8 +39,9 @@ export const AccountButton: React.FC<Props> = ({ userName }: Props) => {
   }, [buttonDisplay])
 
   return (
-  <div className={'flex justify-center items-end flex-col'}>
+  <div className={'flex justify-center items-end flex-col ml-4'}>
     <div
+      ref={accountButtonRef}
       className={`${styles.accountButton} flex justify-center items-center`}
       onClick={handleClick}
     >
