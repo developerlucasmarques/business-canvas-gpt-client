@@ -13,6 +13,7 @@ import Link from 'next/link'
 import { Form, useForm } from 'react-hook-form'
 import { type z } from 'zod'
 import styles from './access-form-card.module.css'
+import formStyles from '../../form.module.css'
 import { useRouter } from 'next/navigation'
 import { type AuthData } from '@/types/auth'
 import { useState } from 'react'
@@ -90,8 +91,8 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
                 name={input.name}
               />
             ))}
-            {!validPasswordConfirmation && <p className={styles.inputFails}>Senha não coincide com a confirmação</p>}
-            {emailInUseError && <p className={styles.inputFails}>Email já está em uso</p>}
+            {!validPasswordConfirmation && <p className={formStyles.inputFails}>Senha não coincide com a confirmação</p>}
+            {emailInUseError && <p className={formStyles.inputFails}>Email já está em uso</p>}
             <div className={`${styles.buttonsContainer}`}>
               <CancelLink width='48%' label='Cancelar'/> <Submit width='48%' label={successButtonLabel}/>
             </div>
