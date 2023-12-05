@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation'
 import { type AuthData } from '@/types/auth'
 import { useState } from 'react'
 import { type ErrorReponse } from '@/types/api-responses/error-response'
+import { UnauthorizedAlert } from '@/utils/modal-alert/unauthorized-alert'
 
 type AccessInputType = Omit<InputProps, 'control'>
 
@@ -38,10 +39,10 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
   const { setUserName, setAccessToken } = useUserInfoCtx()
   const [validPasswordConfirmation, setValidPasswordConfirmation] = useState(true)
   const [emailInUseError, setEmailInUseError] = useState(false)
-  const [invalidCredentials, setInvalidCredentials] = useState(false)
   const router = useRouter()
 
   const handleSubmit = async (data: AuthData): Promise<void> => {
+    setEmailInUseError(false); setValidPasswordConfirmation(true)
     if (data.passwordConfirmation && data.password !== data.passwordConfirmation) {
       setValidPasswordConfirmation(false); return
     }
@@ -53,7 +54,8 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
     const res: ErrorReponse | LoginResponse = await response.json()
     if ('error' in res) {
       if (res.statusCode >= 401 && res.statusCode < 500) {
-        setInvalidCredentials(true); return
+        await UnauthorizedAlert()
+        return
       }
       if (res.name === 'EmailInUseError') {
         setEmailInUseError(true)
@@ -90,7 +92,6 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
             ))}
             {!validPasswordConfirmation && <p className={styles.inputFails}>Senha não coincide com a confirmação</p>}
             {emailInUseError && <p className={styles.inputFails}>Email já está em uso</p>}
-            {invalidCredentials && <p className={styles.inputFails}>Email ou senha incorretos</p>}
             <div className={`${styles.buttonsContainer}`}>
               <CancelLink width='48%' label='Cancelar'/> <Submit width='48%' label={successButtonLabel}/>
             </div>

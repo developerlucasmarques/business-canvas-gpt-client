@@ -7,7 +7,7 @@ interface Props {
   text: string
 }
 
-export const ModalAlert = async ({ icon, title, text }: Props): Promise<void> => {
+export const SwalAlert = async ({ icon, title, text }: Props): Promise<void> => {
   const MySwal = withReactContent(Swal)
-  MySwal.fire({ title, icon, text }).then()
+  MySwal.fire({ title, icon, text, confirmButtonColor: '#45CCFE' }).then()
 }
