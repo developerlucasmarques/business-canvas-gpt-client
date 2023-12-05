@@ -8,9 +8,11 @@ interface Props {
 export const LoadingOverlay: React.FC<Props> = ({ label }: Props) => {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Carregando...</h1>
-      <Loading/>
-      <p className={styles.label}>{label}</p>
+      <div className={styles.content}>
+        <h1 className={styles.title}>Carregando...</h1>
+        <Loading/>
+        <p className={styles.label}>{label}</p>
+      </div>
     </div>
   )
 }
