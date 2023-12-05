@@ -1,4 +1,3 @@
-/* DropdownMenu.css */
 .dropdownContainer {
   position: relative;
 }
@@ -9,8 +8,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2); /* Cor escura com transparência */
-  z-index: 1; /* Garante que o overlay está acima dos outros elementos */
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
   display: flex;
   justify-content: flex-end;
 }

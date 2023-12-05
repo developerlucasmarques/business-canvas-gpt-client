@@ -3,11 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from './header-menu.module.css'
 import { NavBar } from '../../nav-bar'
 
-interface DropdownMenuProps {
-  options: string[]
-}
-
-export const HeaderMenu: React.FC<DropdownMenuProps> = () => {
+export const HeaderMenu: React.FC = () => {
   const exitContainerRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState(false)
 

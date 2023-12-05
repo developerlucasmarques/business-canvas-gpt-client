@@ -23,7 +23,7 @@ export const Header: React.FC = () => {
     <header className={styles.header}>
       <div className={`${styles.content} flex justify-between items-center`}>
         <Logo url='/'/>
-        {isGreaterThan700 ? <NavBar/> : <HeaderMenu options={['opção 1', 'opção 2']}/>}
+        {isGreaterThan700 ? <NavBar/> : <HeaderMenu />}
       </div>
     </header>
   )

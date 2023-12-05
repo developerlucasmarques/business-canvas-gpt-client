@@ -75,9 +75,3 @@
     max-width: 15ch
   }
 }
-
-@media (max-width: 700px) {
-  .truncate {
-    max-width: 21ch
-  }
-}
