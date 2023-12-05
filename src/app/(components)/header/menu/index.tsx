@@ -1,11 +1,12 @@
-// DropdownMenu.tsx
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './header-menu.module.css'
 import { NavBar } from '../../nav-bar'
+import { usePathname } from 'next/navigation'
 
 export const HeaderMenu: React.FC = () => {
   const exitContainerRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState(false)
+  const pathName = usePathname()
 
   const toggleDropdown = (): void => {
     setIsOpen(!isOpen)
@@ -21,6 +22,8 @@ export const HeaderMenu: React.FC = () => {
     document.addEventListener('mousedown', handleOutsideClick)
     return () => { document.removeEventListener('mousedown', handleOutsideClick) }
   }, [isOpen])
+
+  useEffect(() => { setIsOpen(false) }, [pathName])
 
   return (
     <div className={styles.dropdownContainer}>
