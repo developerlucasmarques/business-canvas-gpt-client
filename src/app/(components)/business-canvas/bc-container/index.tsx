@@ -55,7 +55,7 @@ export const BcContainer: React.FC<Props> = ({ businessCanvas }: Props) => {
   )
 
   const renderLine = (keys: ComponentName[]): React.ReactNode => (
-    <div className={styles.line} >{renderCards(keys)}</div>
+    <div className={styles.line}>{renderCards(keys)}</div>
   )
 
   const renderCards = (keys: ComponentName[]): React.ReactNode => (
@@ -80,8 +80,8 @@ export const BcContainer: React.FC<Props> = ({ businessCanvas }: Props) => {
           {isGreaterThan1200 && renderColumn(['customerRelationships', 'channels'])}
           {isGreaterThan1000 && renderColumn(['customerSegments'])}
         </div>
-        {!isGreaterThan680 && keysIsLessThan680.map(key => (
-          <div className={styles.businessCanvasLinesContainer}>
+        {!isGreaterThan680 && keysIsLessThan680.map((key, index) => (
+          <div key={index} className={styles.businessCanvasLinesContainer}>
             {renderLine([key as ComponentName])}
           </div>
         ))}
