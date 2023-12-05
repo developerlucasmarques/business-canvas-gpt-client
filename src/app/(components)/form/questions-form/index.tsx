@@ -59,7 +59,6 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
       body: JSON.stringify(formattedAnswers)
     })
     const res: ErrorReponse | CreateBusinessCanvasReponse = await response.json()
-    setSubmitDisabled(false); setLoading(false)
     if ('error' in res) return
     let canvas = res
     if (res.token && res.userName) {
@@ -70,6 +69,7 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
     }
     businessCanvasCtx?.setBusinessCanvas(canvas)
     router.push(`/business-canvas/${res.id}`)
+    setSubmitDisabled(false); setLoading(false)
   }
 
   const handleOnOptionChange = (data: string | undefined): void => {
