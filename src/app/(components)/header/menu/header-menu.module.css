@@ -17,10 +17,32 @@
 
 .dropdownContent {
   display: flex;
+  justify-content: flex-end;
   margin-top: 8rem;
   background: var(--color-header-background);
-  padding: 2rem 4rem 2rem 4rem;
+  padding: 2rem 3rem 2rem 3rem;
   border-radius: 1.2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+@media (max-width: 600px) {
+  .dropdownContent {
+    margin-top: 6rem;
+    padding: 1.6rem 1.8rem 1.6rem 2.6rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .dropdownContent {
+    padding: 1.5rem 1.7rem 1.5rem 2.5rem;
+  }
+  .dropdownContainer svg {
+    height: 3.4rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .dropdownContent {
+    padding: 1.3rem 1.5rem 1.3rem 2.3rem;
+  }
+}

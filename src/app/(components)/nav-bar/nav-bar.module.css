@@ -10,6 +10,28 @@
   }
 
   .navBar li {
-    margin: .2rem 0 1.2rem 0;
+    margin: .6rem 0 .8rem 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .navBar {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .navBar li {
+    margin: .6rem 0 1rem 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .navBar {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .navBar li {
+    margin: .6rem 0 1.1rem 0;
   }
 }
