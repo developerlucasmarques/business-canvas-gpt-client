@@ -13,6 +13,6 @@ export const Exit: React.FC = () => {
   }
 
   return (
-  <li onClick={exitHandleClick} className={styles.exit}>Sair</li>
+  <div onClick={exitHandleClick} className={styles.exit}>Sair</div>
   )
 }

@@ -27,21 +27,21 @@ export const NavBar: React.FC = () => {
   const renderNavElements = (): ReactNode[] => {
     if (((userName && pathName === '/') || (userName && /^\/business-canvas\/.*$/.test(pathName))) && isGreaterThan700) {
       return [
-        <MyBusinessCanvasButton key={1} url='/business-canvas' />,
-        <AccountButton key={2} userName={userName} />
+        <li><MyBusinessCanvasButton key={1} url='/business-canvas' /></li>,
+        <li><AccountButton key={2} userName={userName} /></li>
       ]
     }
     if (((userName && pathName === '/') || (userName && /^\/business-canvas\/.*$/.test(pathName))) && !isGreaterThan700) {
       return [
-        <MyBusinessCanvasButton key={1} url='/business-canvas' />,
-        <Exit key={2} />
+        <li><MyBusinessCanvasButton key={1} url='/business-canvas' /></li>,
+        <li><Exit key={2}/></li>
       ]
     }
     if (userName && isGreaterThan700) {
-      return [<AccountButton userName={userName}/>]
+      return [<li><AccountButton key={1} userName={userName} /></li>]
     }
     if (userName && !isGreaterThan700) {
-      return [<Exit key={2} />]
+      return [<Exit key={1} />]
     }
     const currentNav = NavsHeaders.find(item => item.routeName === pathName)
     return (

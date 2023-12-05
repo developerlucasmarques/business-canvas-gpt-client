@@ -35,7 +35,7 @@ export const AccountButton: React.FC<Props> = ({ userName }: Props) => {
   }, [buttonDisplay])
 
   return (
-  <li className={'flex justify-center items-end flex-col'}>
+  <div className={'flex justify-center items-end flex-col'}>
     <div
       className={`${styles.accountButton} flex justify-center items-center`}
       onClick={handleClick}
@@ -48,6 +48,6 @@ export const AccountButton: React.FC<Props> = ({ userName }: Props) => {
     <div ref={exitContainerRef} className={`${styles.exitContainer} ${buttonDisplay ? 'flex' : 'hidden'}`}>
       <button className={styles.exitButtom} onClick={exitHandleClick}>Sair</button>
     </div>
-  </li>
+  </div>
   )
 }

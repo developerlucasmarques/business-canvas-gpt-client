@@ -7,10 +7,10 @@ interface Props {
 
 export const MyBusinessCanvasButton: React.FC<Props> = ({ url }: Props) => {
   return (
-  <li className={`${styles.businessCanvas} flex justify-center`}>
+  <div className={`${styles.businessCanvas} flex justify-center`}>
     <Link href={url} className={'flex justify-center items-center'}>
       <p className='ml-1'>Meus Business Canvas</p>
     </Link>
-  </li>
+  </div>
   )
 }
