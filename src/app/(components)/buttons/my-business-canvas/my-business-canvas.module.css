@@ -4,7 +4,7 @@
   font-weight: var(--font-weight-medium);
 }
 
-@media (max-width: 740px) {
+@media (max-width: 840px) {
   .businessCanvas {
     font-size: 1.7rem;
   }
