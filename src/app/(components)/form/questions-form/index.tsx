@@ -6,13 +6,11 @@ import { Textarea } from '@/app/(components)/form/textarea'
 import { LoadingOverlay } from '@/app/(components)/loading-overlay'
 import { useBusinessCanvasCtx } from '@/app/(contexts)/business-canvas-context'
 import { useUserInfoCtx } from '@/app/(contexts)/global-context'
+import { createBusinessCanvasService } from '@/app/(services)/create-business-canvas/create-business-canvas'
 import styles from '@/styles/home.module.css'
 import { type IAnswer } from '@/types/answer'
 import { type CreateBusinessCanvas } from '@/types/api-requests/create-business-canvas'
-import { type CreateBusinessCanvasReponse } from '@/types/api-responses/create-business-canvas-resposne'
-import { type ErrorReponse } from '@/types/api-responses/error-response'
 import { type Question } from '@/types/question'
-import { apiBaseUrl } from '@/utils/env'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Form, useForm } from 'react-hook-form'
@@ -22,11 +20,10 @@ interface Props {
 }
 
 export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
-  const { setAccessToken, setUserName } = useUserInfoCtx()
+  const { accessToken, setAccessToken, setUserName } = useUserInfoCtx()
   const [submitDisabled, setSubmitDisabled] = useState(false)
   const [loading, setLoading] = useState(false)
   const [showInput, setShowInput] = useState(false)
-  const { accessToken } = useUserInfoCtx()
   const { control } = useForm()
   const businessCanvasCtx = useBusinessCanvasCtx()
   const router = useRouter()
@@ -50,26 +47,22 @@ export const QuestionsForm: React.FC<Props> = ({ questions }: Props) => {
     }
     setSubmitDisabled(true); setLoading(true)
     const formattedAnswers = formatAnswers(answers)
-    const response = await fetch(`${apiBaseUrl}/business-canvas`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': accessToken
-      },
-      body: JSON.stringify(formattedAnswers)
-    })
-    const res: ErrorReponse | CreateBusinessCanvasReponse = await response.json()
-    if ('error' in res) return
-    let canvas = res
-    if (res.token && res.userName) {
-      setAccessToken(res.token)
-      setUserName(res.userName)
-      const { token, userName, ...datas } = res
-      canvas = datas
+    const res = await createBusinessCanvasService(accessToken, formattedAnswers)
+    if (res.isLeft()) {
+      return
     }
-    businessCanvasCtx?.setBusinessCanvas(canvas)
-    router.push(`/business-canvas/${res.id}`)
-    setSubmitDisabled(false); setLoading(false)
+    let value = res.value
+    if (value.token && value.userName) {
+      setAccessToken(value.token)
+      setUserName(value.userName)
+      const { token, userName, ...datas } = value
+      value = datas
+    }
+    businessCanvasCtx?.setBusinessCanvas(value)
+    router.push(`/business-canvas/${value.id}`)
+    setTimeout(() => {
+      setSubmitDisabled(false); setLoading(false)
+    }, 1000)
   }
 
   const handleOnOptionChange = (data: string | undefined): void => {
