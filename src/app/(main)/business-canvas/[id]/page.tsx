@@ -3,9 +3,8 @@ import { BcContainer } from '@/app/(components)/business-canvas/bc-container'
 import { NotFound } from '@/app/(components)/errors/not-found'
 import { useBusinessCanvasCtx } from '@/app/(contexts)/business-canvas-context'
 import { useUserInfoCtx } from '@/app/(contexts)/global-context'
-import { type ErrorReponse } from '@/types/api-responses/error-response'
+import { getOneBusinessCanvasService } from '@/app/(services)/get-one-business-canvas/get-one-business-canvas-service'
 import { type IBusinessCanvas } from '@/types/business-canvas'
-import { apiBaseUrl } from '@/utils/env'
 import { useEffect, useState } from 'react'
 
 interface Props {
@@ -24,23 +23,14 @@ const BusinessCanvasById: React.FC<Props> = ({ params }: Props) => {
       setBusinessCanvas(businessCanvasCtx.businessCanvas)
       return
     }
-    const response = await fetch(`${apiBaseUrl}/business-canvas/${params.id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': accessToken
-      }
-    })
-    const res: ErrorReponse | IBusinessCanvas = await response.json()
-    if ('error' in res) {
+    const res = await getOneBusinessCanvasService(accessToken, params.id)
+    if (res.isLeft()) {
       return
     }
-    setBusinessCanvas(res)
+    setBusinessCanvas(res.value)
   }
 
-  useEffect(() => {
-    getData().catch(console.error)
-  }, [])
+  useEffect(() => { getData().catch(() => {}) }, [])
 
   return (
     <>
