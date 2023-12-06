@@ -20,7 +20,7 @@ const BusinessCanvasById: React.FC<Props> = ({ params }: Props) => {
   const businessCanvasCtx = useBusinessCanvasCtx()
 
   const getData = async (): Promise<void> => {
-    if (businessCanvasCtx?.businessCanvas) {
+    if (businessCanvasCtx?.businessCanvas?.id === params.id) {
       setBusinessCanvas(businessCanvasCtx.businessCanvas)
       return
     }
