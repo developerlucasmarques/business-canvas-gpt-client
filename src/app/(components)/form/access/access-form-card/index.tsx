@@ -5,20 +5,18 @@ import { CancelLink } from '@/app/(components)/buttons/cancel'
 import { Submit } from '@/app/(components)/buttons/submit'
 import { AccessInput } from '@/app/(components)/form/access/access-input'
 import { useUserInfoCtx } from '@/app/(contexts)/global-context'
-import { apiBaseUrl } from '@/utils/env'
-import { type LoginResponse } from '@/types/api-responses/login-response'
+import { accessService } from '@/app/(services)/access/access-service'
+import { type AuthData } from '@/types/auth'
 import { type InputProps } from '@/types/input'
+import { UnauthorizedAlert } from '@/utils/modal-alert/unauthorized-alert'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { Form, useForm } from 'react-hook-form'
 import { type z } from 'zod'
-import styles from './access-form-card.module.css'
 import formStyles from '../../form.module.css'
-import { useRouter } from 'next/navigation'
-import { type AuthData } from '@/types/auth'
-import { useState } from 'react'
-import { type ErrorReponse } from '@/types/api-responses/error-response'
-import { UnauthorizedAlert } from '@/utils/modal-alert/unauthorized-alert'
+import styles from './access-form-card.module.css'
 
 type AccessInputType = Omit<InputProps, 'control'>
 
@@ -47,23 +45,18 @@ export const AccessFormCard: React.FC<Props> = (props: Props) => {
     if (data.passwordConfirmation && data.password !== data.passwordConfirmation) {
       setValidPasswordConfirmation(false); return
     }
-    const response = await fetch(`${apiBaseUrl}${formAction}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    const res: ErrorReponse | LoginResponse = await response.json()
-    if ('error' in res) {
-      if (res.statusCode >= 401 && res.statusCode < 500) {
+    const res = await accessService(data, formAction)
+    if (res.isLeft()) {
+      if (res.value.statusCode >= 401 && res.value.statusCode < 500) {
         await UnauthorizedAlert()
         return
       }
-      if (res.name === 'EmailInUseError') {
+      if (res.value.name === 'EmailInUseError') {
         setEmailInUseError(true)
       }
       return
     }
-    setUserName(res.userName); setAccessToken(res.token)
+    setUserName(res.value.userName); setAccessToken(res.value.token)
     router.push('/')
   }
 
